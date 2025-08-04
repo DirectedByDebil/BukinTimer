@@ -1,0 +1,85 @@
+.install-block{
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 20px;
+    width: 40%;
+    min-width: 250px;
+    margin: 20px auto;
+    border: solid 5px var(--white);
+    border-radius: 16px;
+}
+
+.install-block__label{
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.install-block__timer{
+    width: 90%;
+    font-size: 16px;
+    padding: 5px;
+    border: solid 1px var(--white);
+    border-radius: 8px;
+}
+
+.install-block__startButton{
+    display: block;
+    background-color: transparent;
+    width: 100%;
+    color: var(--white);
+    border-color: var(--blue);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 400ms;
+}
+
+.install-block__startButton:hover{
+    background-color: var(--blue);
+}
+
+.install-block__startButton .text {
+    color: var(--blue);
+    font-weight: 700;
+    font-size: 1em;
+    transition: 400ms;
+}
+
+.install-block__startButton:hover .text {
+    color: var(--white)
+}
+
+@media (max-width: 1240px) {
+    .install-block{
+        width: 50%
+    }
+}
+
+@media (max-width: 1020px) {
+    .install-block{
+        width: 60%
+    }
+}
+
+@media (max-width: 840px) {
+    .install-block{
+        width: 70%
+    }
+}
+
+@media (max-width: 700px) {
+    .install-block{
+        width: 80%
+    }
+}
+
+@media (max-width: 620px) {
+    .install-block{
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .install-block__timer{
+        padding: 5px 0px;
+    }
+}
