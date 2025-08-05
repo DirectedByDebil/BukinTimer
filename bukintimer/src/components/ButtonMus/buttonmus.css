@@ -1,0 +1,36 @@
+.button-play-mus{
+    display: flex;
+    position: absolute;
+    border: none;
+    right: 0;
+    margin-right: 35px;
+    background-color: transparent;
+    transition: all 0.3s ease-in-out;
+    padding: 0;
+    cursor: pointer;
+}
+
+.button-play-mus:hover{
+    transform: scale(1.1);
+}
+
+.icon-button{
+    height: 60px;
+    width: 60px;
+    position: relative;
+    z-index: 1;
+}
+
+.button-play-mus.crossed::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70px;
+    height: 5px;
+    background-color: red;
+    z-index: 2;
+    transform: translate(-50%, -50%) rotate(45deg);
+    transform-origin: center;
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+}

@@ -1,5 +1,6 @@
 import './installationblock.css'
-import React, {useState} from 'react'
+import {useState} from 'react'
+import ButtonMus from '../ButtonMus/ButtonMus';
 
 export default function InstallationBlock(){
     const[startTime, setStartTime] = useState('08:00');
@@ -47,6 +48,8 @@ export default function InstallationBlock(){
                     >
                     <p className='text'>Старт</p>
             </button>
+            
+            <ButtonMus/>
         </div>
     )   
 }

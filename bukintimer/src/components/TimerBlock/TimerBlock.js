@@ -1,5 +1,5 @@
-import classes from './timerblock.css'
-import React, {useState} from 'react';
+import './timerblock.css'
+import {useState} from 'react';
 
 export default function TimerBlock(){
     const [time, setTime] = useState({

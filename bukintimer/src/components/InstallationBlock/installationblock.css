@@ -12,7 +12,6 @@
 
 .install-block__label{
     display: block;
-    font-weight: 500;
     margin-bottom: 5px;
 }
 
@@ -26,10 +25,10 @@
 
 .install-block__startButton{
     display: block;
-    background-color: transparent;
+    background-color: var(--blue);
     width: 100%;
     color: var(--white);
-    border-color: var(--blue);
+    border: none;
     border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
@@ -37,18 +36,18 @@
 }
 
 .install-block__startButton:hover{
-    background-color: var(--blue);
+    transform: scale(1.05);
 }
 
 .install-block__startButton .text {
-    color: var(--blue);
+    color: var(--white);
     font-weight: 700;
-    font-size: 1em;
+    font-size: 1.1em;
     transition: 400ms;
 }
 
 .install-block__startButton:hover .text {
-    color: var(--white)
+    transform: scale(1.08);
 }
 
 @media (max-width: 1240px) {
