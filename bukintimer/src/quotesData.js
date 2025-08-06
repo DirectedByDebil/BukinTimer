@@ -1,3 +1,4 @@
+//#TODO keys must be in english
 export const weekDays = [
     "Понедельник",
     "Вторник",
@@ -8,6 +9,8 @@ export const weekDays = [
     "Воскресенье"
 ];
 
+
+//#TODO values must be multilingual
 // Список цитат по дням недели и прогрессу дня
 export const quotesByDayProgress = [
     // Понедельник
