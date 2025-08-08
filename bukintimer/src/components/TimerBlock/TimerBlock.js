@@ -1,31 +1,22 @@
 import './timerblock.css'
-import {useState} from 'react';
 
-export default function TimerBlock(){
-    const [time, setTime] = useState({
-        sinceStart: '00:00:00',
-        untilLunch: '00:00:00',
-        untilEnd: '00:00:00'
-    });
+export default function TimerBlock( { startTime, lunchTime, endTime} ){
+
+    const default_values = [
+        {label: 'С НАЧАЛА СМЕНЫ', value: startTime}, 
+        {label: 'ДО ОБЕДА', value: lunchTime}, 
+        {label: 'ДО КОНЦА СМЕНЫ', value: endTime}
+    ]
 
     return(
     <div className='timer-block'>
         <div className='timer-block__container'>
-
-            <div className='timer-block__item'>
-                <div className='timer-label'>С НАЧАЛА СМЕНЫ</div>
-                <div className='timer-value'>{time.sinceStart}</div>
+            {default_values.map((default_value, index) => (
+            <div className='timer-block__item' key={index}>
+                <div className='timer-label'>{default_value.label}</div>
+                <div className='timer-value'>{default_value.value}</div>
             </div>
-            
-            <div className='timer-block__item'>
-                <div className='timer-label'>ДО ОБЕДА</div>
-                <div className='timer-value'>{time.untilLunch}</div>
-            </div>
-            
-            <div className='timer-block__item'>
-                <div className='timer-label'>ДО КОНЦА СМЕНЫ</div>
-                <div className='timer-value'>{time.untilEnd}</div>
-            </div>
+            ))}
         </div>
     </div>
     )

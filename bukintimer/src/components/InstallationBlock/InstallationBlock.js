@@ -1,51 +1,34 @@
 import './installationblock.css'
-import {useState} from 'react'
 import ButtonMus from '../ButtonMus/ButtonMus';
 
-export default function InstallationBlock(){
-    const[startTime, setStartTime] = useState('08:00');
-    const[lunchTime, setLunchTime] = useState('13:00');
-    const[endTime, setEndTime] = useState('17:00');
-    //const[isRunning, setIsRunning] = useState(false);
+export default function InstallationBlock( {startTime, lunchTime, endTime, 
+    onStartTimeChange, onLunchTimeChange, onEndTimeChange} ){
 
     const handleStart = () => {
-        //setIsRunning(true);
         console.log('Старт с параметрами:', { startTime, endTime, lunchTime });
     };
 
+    const inputs =[
+        {label: 'Начало смены', value: startTime, onChange: onStartTimeChange},
+        {label: 'Обед', value: lunchTime, onChange: onLunchTimeChange},
+        {label: 'Конец смены', value: endTime, onChange: onEndTimeChange}
+    ]
+
     return(
         <div className='install-block'>
-            <div className='install-block__container'>
-                <label className='install-block__label'>Начало смены</label>
-                <input type="time" 
-                    value={startTime}
-                    onChange={(e) => setStartTime(e.target.value)}
-                    //disabled={isRunning} 
+            {inputs.map((input, index) => (
+                <div className='install-block__container' key={index}>
+                <label className='install-block__label'>{input.label}</label>
+                <input 
+                    type="time" 
+                    step={2}
+                    value={input.value}
+                    onChange={(e) => input.onChange(e.target.value)}
                     className='install-block__timer'></input>
-            </div>
+                </div>
+            ))}
 
-            <div className='install-block__container'>
-                <label className='install-block__label'>Обед</label>
-                <input type="time" 
-                    value={lunchTime}
-                    onChange={(e) => setLunchTime(e.target.value)}
-                    //disabled={isRunning} 
-                    className='install-block__timer'></input>
-            </div>
-
-            <div className='install-block__container'>
-                <label className='install-block__label'>Конец смены</label>
-                <input type="time" 
-                    value={endTime}
-                    onChange={(e) => setEndTime(e.target.value)}
-                    //disabled={isRunning} 
-                    className='install-block__timer'></input>
-            </div>
-
-            <button className='install-block__startButton'
-                    onClick={handleStart}
-                    //</div>disabled={isRunning}
-                    >
+            <button className='install-block__startButton' onClick={handleStart}>
                     <p className='text'>Старт</p>
             </button>
             

@@ -1,0 +1,60 @@
+.quotes-block {
+position: fixed;
+bottom: 0;
+right: 0;
+z-index: 10;
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0;
+max-height: 100vh;
+box-sizing: border-box;
+}
+
+.quotes-block__avatar {
+width: 350px;
+height: auto;
+object-fit: contain;
+max-height: 100%;
+}
+
+.quotes-block__speech-bubble {
+position: relative;
+background: white;
+padding: 10px 15px;
+border-radius: 15px;
+margin-bottom: 10px;
+max-width: 90vw;
+width: fit-content;
+white-space: normal;
+display: flex;
+flex-direction: column;
+gap: 6px;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+text-align: center;
+}
+
+.quotes-block__speech-bubble::after {
+content: '';
+position: absolute;
+right: -10px;
+top: 50%;
+transform: translateY(-50%);
+width: 0;
+height: 0;
+border-left: 10px solid white;
+border-top: 10px solid transparent;
+border-bottom: 10px solid transparent;
+}
+
+.quotes-block__label-day {
+font-weight: bold;
+font-size: 18px;
+color: #333;
+}
+
+.quotes-block__label-quote {
+font-size: 16px;
+color: #555;
+line-height: 1.3;
+}
