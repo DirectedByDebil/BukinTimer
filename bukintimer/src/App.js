@@ -3,6 +3,7 @@ import './index.css';
 import InstallationBlock from './components/InstallationBlock/InstallationBlock';
 import TimerBlock from './components/TimerBlock/TimerBlock';
 import QuotesBlock from './components/QuotesBlock/QuotesBlock';
+import BackgroundShapes from './components/BackgroundShapes/BackgroundShapes';
 
 export default function App() {
   const[startTime, setStartTime] = useState('08:00:00');
@@ -26,6 +27,7 @@ export default function App() {
   return (
     <>
       <main>
+        <BackgroundShapes/>
         <InstallationBlock
         startTime={startTime}
         lunchTime={lunchTime}

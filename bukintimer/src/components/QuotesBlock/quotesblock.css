@@ -12,7 +12,7 @@ box-sizing: border-box;
 }
 
 .quotes-block__avatar {
-width: 350px;
+width: 400px;
 height: auto;
 object-fit: contain;
 max-height: 100%;

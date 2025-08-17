@@ -1,0 +1,86 @@
+.background-shapes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.shape {
+    position: absolute;
+    font-size: 72px;
+    opacity: 0.25;
+    border-radius: 50%;
+    background: white;
+    border: solid 10px white;
+    filter: blur(2px);
+}
+
+.shape:nth-child(1) {
+    width: 150px;
+    height: 150px;
+    top: 10%;
+    left: 10%;
+    animation: float 15s ease-in-out infinite alternate;
+}
+
+.shape:nth-child(2) {
+    width: 170px;
+    height: 170px;
+    top: 7%;
+    left: 50%;
+    animation: float 15s ease-in-out infinite alternate;
+}
+
+.shape:nth-child(3) {
+    width: 250px;
+    height: 250px;
+    top: 15%;
+    left: 80%;
+    animation: float 20s ease-in-out infinite alternate-reverse;
+}
+
+.shape:nth-child(4) {
+    width: 140px;
+    height: 140px;
+    top: 75%;
+    left: 15%;
+    animation: float 14s ease-in-out infinite alternate;
+}
+
+.shape:nth-child(5) {
+    width: 180px;
+    height: 180px;
+    top: 40%;
+    left: 35%;
+    animation: float 20s ease-in-out infinite alternate;
+}
+
+.shape:nth-child(6) {
+    width: 110px;
+    height: 110px;
+    top: 75%;
+    left: 45%;
+    animation: float 18s ease-in-out infinite alternate-reverse;
+}
+
+.shape:nth-child(7) {
+    width: 200px;
+    height: 200px;
+    top: 70%;
+    left: 70%;
+    animation: float 18s ease-in-out infinite alternate-reverse;
+}
+@keyframes float {
+    0% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(40px, 50px);
+    }
+    100% {
+        transform: translate(-40px, -50px);
+    }
+}
