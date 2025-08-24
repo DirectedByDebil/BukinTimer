@@ -1,13 +1,15 @@
 .button-play-mus{
-    display: flex;
-    position: absolute;
-    border: none;
-    right: 0;
-    margin-right: 35px;
+    display: block;
     background-color: transparent;
-    transition: all 0.3s ease-in-out;
-    padding: 0;
+    width: 100%;
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
+    font-size: 16px;
+    padding: 0;
+    transition: all 0.3s ease-in-out;
+    position: relative;
 }
 
 .button-play-mus:hover{

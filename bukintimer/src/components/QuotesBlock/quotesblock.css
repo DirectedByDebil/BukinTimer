@@ -2,7 +2,7 @@
 position: fixed;
 bottom: 0;
 right: 0;
-z-index: 10;
+z-index: 2;
 display: flex;
 flex-direction: row;
 align-items: center;
@@ -12,10 +12,16 @@ box-sizing: border-box;
 }
 
 .quotes-block__avatar {
-width: 400px;
+width: 350px;
 height: auto;
+padding: 10px;
 object-fit: contain;
 max-height: 100%;
+transition: all 0.3s ease-in-out;
+}
+
+.quotes-block__avatar:hover{
+    transform: scale(1.02) rotate(-3deg);
 }
 
 .quotes-block__speech-bubble {
@@ -24,7 +30,7 @@ background: white;
 padding: 10px 15px;
 border-radius: 15px;
 margin-bottom: 10px;
-max-width: 90vw;
+max-width: 550px;
 width: fit-content;
 white-space: normal;
 display: flex;
@@ -49,12 +55,12 @@ border-bottom: 10px solid transparent;
 
 .quotes-block__label-day {
 font-weight: bold;
-font-size: 18px;
-color: #333;
+font-size: 24px;
+color: rgb(24, 24, 24);
 }
 
 .quotes-block__label-quote {
-font-size: 16px;
-color: #555;
+font-size: 18px;
+color: rgb(32, 32, 32);
 line-height: 1.3;
 }

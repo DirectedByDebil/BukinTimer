@@ -2,14 +2,14 @@ import './backgroundshapes.css'
 
 export default function BackgroundShapes(){
     return(
-        <div class="background-shapes">
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
+        <div className="background-shapes">
+            <div className="shape"></div>
+            <div className="shape"></div>
+            <div className="shape"></div>
+            <div className="shape"></div>
+            <div className="shape"></div>
+            <div className="shape"></div>
+            <div className="shape"></div>
         </div>
     )
 }

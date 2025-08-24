@@ -1,0 +1,28 @@
+.music-person-block {
+    position: fixed;
+    top: 25px;
+    right: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 15px;
+    width: auto;
+    min-width: 200px;
+    border: solid 5px var(--white);
+    border-radius: 16px;
+    background-color: var(--background-color);
+    z-index: 10;
+}
+
+.music-person-block__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 620px) {
+    .music-person-block {
+        position: static;
+        margin: 20px auto;
+        width: 50%;
+    }
+}

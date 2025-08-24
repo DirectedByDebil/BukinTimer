@@ -1,0 +1,160 @@
+.modalWindow__container{
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(15px);
+}
+
+.modalWindow__container {
+    animation: show 0.5s;
+}
+@keyframes show {
+    from {opacity: 0;} to {opacity: 1;}
+}
+
+.modalWindow__content{
+    position: absolute;
+    top: 50%;
+    background-color: white;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    border-radius: 16px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh;
+}
+
+.modalWindow__close-btn {
+    position: absolute;
+    right: 15px;
+    color: #ff0000;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.modalWindow__close-btn:hover {
+    transform: scale(1.2);
+}
+
+.modalWindow__list-container{
+    margin: 30px;
+}
+
+.modalWindow__list-persons{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 20px;
+    
+}
+
+.modalWindow__cardPerson *,
+  .modalWindow__cardPerson *:after,
+  .modalWindow__cardPerson *:before {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalWindow__input {
+    clip: rect(0 0 0 0);
+    -webkit-clip-path: inset(100%);
+    clip-path: inset(100%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+.modalWindow__input:checked + .modalWindow__tile {
+    border-color: var(--pink);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    color: var(--pink);
+}
+
+.modalWindow__input:checked + .modalWindow__tile:before {
+    transform: scale(1);
+    opacity: 1;
+    background-color: var(--pink);
+    border-color: var(--pink);
+}
+
+.modalWindow__input:checked + .modalWindow__label{
+    color: var(--pink);
+}
+
+.modalWindow__input:focus + .modalWindow__tile {
+    border-color: var(--pink);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 0 0 4px #fcb5b5;
+}
+
+.modalWindow__input:focus + .modalWindow__tile:before {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.modalWindow__tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    min-height: 350px;
+    max-height: 400px;
+    border-radius: 0.5rem;
+    border: 2px solid #b5bfd9;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.15s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.modalWindow__tile:before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid #b5bfd9;
+    background-color: #fff;
+    border-radius: 50%;
+    top: 0.25rem;
+    left: 0.25rem;
+    opacity: 0;
+    transform: scale(0);
+    transition: 0.25s ease;
+}
+
+.modalWindow__tile:hover {
+    border-color: var(--pink);
+}
+
+.modalWindow__tile:hover:before {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.modalWindow__img{
+    width: 100%;
+    height: auto;
+    max-height: 250px;
+    object-fit: contain;
+}
+
+.modalWindow__label {
+    font-size: clamp(32px, 2vw, 40px);
+    padding: 15px 0px;
+    transition: 0.3s ease;
+    text-align: center;
+}

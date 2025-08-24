@@ -1,6 +1,6 @@
 import './quotesblock.css'
-import avatar from './gena_1.png'
-export default function QuotesBlock() {
+
+export default function QuotesBlock({ person }) {
 
     return (
         <div className="quotes-block">
@@ -10,7 +10,9 @@ export default function QuotesBlock() {
             Quotes
             </label>
         </div>
-        <img src={avatar} className="quotes-block__avatar" alt="avatar" />
+        <div className='quotes-block__avatar-container'>
+            <img src={person.img} className="quotes-block__avatar" alt={person.name} />
+        </div>
         </div>
     );
 }

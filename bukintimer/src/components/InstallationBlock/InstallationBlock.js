@@ -1,5 +1,4 @@
 import './installationblock.css'
-import ButtonMus from '../ButtonMus/ButtonMus';
 
 export default function InstallationBlock( {startTime, lunchTime, endTime, 
     onStartTimeChange, onLunchTimeChange, onEndTimeChange} ){
@@ -31,8 +30,6 @@ export default function InstallationBlock( {startTime, lunchTime, endTime,
             <button className='install-block__startButton' onClick={handleStart}>
                     <p className='text'>Старт</p>
             </button>
-            
-            <ButtonMus/>
         </div>
     )   
 }
