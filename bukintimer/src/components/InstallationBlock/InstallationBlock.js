@@ -1,18 +1,34 @@
 import './installationblock.css'
+import { useState } from 'react';
 import ButtonMus from '../ButtonMus/ButtonMus';
 
-export default function InstallationBlock( {startTime, lunchTime, endTime, 
-    onStartTimeChange, onLunchTimeChange, onEndTimeChange} ){
+export default function InstallationBlock( { onTimeChanged} ){
+
+    const[startTime, setStartTime] = useState('08:00:00');
+    const[lunchTime, setLunchTime] = useState('13:00:00');
+    const[endTime, setEndTime] = useState('17:00:00');
 
     const handleStart = () => {
-        console.log('Старт с параметрами:', { startTime, endTime, lunchTime });
+
+        const times = {
+
+            start: startTime,
+
+            lunch: lunchTime,
+
+            end: endTime
+        };
+
+        onTimeChanged(times);
     };
 
+
     const inputs =[
-        {label: 'Начало смены', value: startTime, onChange: onStartTimeChange},
-        {label: 'Обед', value: lunchTime, onChange: onLunchTimeChange},
-        {label: 'Конец смены', value: endTime, onChange: onEndTimeChange}
+        {label: 'Начало смены', value: startTime, onChange: setStartTime},
+        {label: 'Обед', value: lunchTime, onChange: setLunchTime},
+        {label: 'Конец смены', value: endTime, onChange: setEndTime}
     ]
+    
 
     return(
         <div className='install-block'>
