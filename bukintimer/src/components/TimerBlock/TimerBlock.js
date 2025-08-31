@@ -1,11 +1,11 @@
 import './timerblock.css'
 
-export default function TimerBlock( { startTime, lunchTime, endTime} ){
+export default function TimerBlock( { times} ){
 
     const default_values = [
-        {label: 'С НАЧАЛА СМЕНЫ', value: startTime}, 
-        {label: 'ДО ОБЕДА', value: lunchTime}, 
-        {label: 'ДО КОНЦА СМЕНЫ', value: endTime}
+        {label: 'С НАЧАЛА СМЕНЫ', value: times.start}, 
+        {label: 'ДО ОБЕДА', value: times.lunch}, 
+        {label: 'ДО КОНЦА СМЕНЫ', value: times.end}
     ]
 
     return(
