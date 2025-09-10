@@ -3,9 +3,9 @@ import { useState } from 'react';
 
 export default function InstallationBlock( { onTimeChanged} ){
 
-    const[startTime, setStartTime] = useState('08:00:00');
-    const[lunchTime, setLunchTime] = useState('13:00:00');
-    const[endTime, setEndTime] = useState('17:00:00');
+    const[startTime, setStartTime] = useState('09:00:00');
+    const[lunchTime, setLunchTime] = useState('14:00:00');
+    const[endTime, setEndTime] = useState('18:00:00');
 
     const handleStart = () => {
 
