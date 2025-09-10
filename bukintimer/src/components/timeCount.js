@@ -19,9 +19,9 @@ export default class TimeCount {
 
                 return {
 
-                    start: this.start.time.toString(),
-                    lunch: this.lunch.time.toString(),
-                    end: this.end.time.toString()
+                    start: this.start.time,
+                    lunch: this.lunch.time,
+                    end: this.end.time
                 };
             },
 
@@ -47,12 +47,14 @@ export default class TimeCount {
 
         this.setTimers(times);
     
+
+        //! check why this doesn't work
         if (this.#startedInterval) {
             
             clearInterval(this.#startedInterval);
         }
         
-        this.#startedInterval = setInterval(this.startInterval.bind(this), 100)
+        this.#startedInterval = setInterval(this.startInterval.bind(this), 1000)
     };
     
     
@@ -61,15 +63,13 @@ export default class TimeCount {
         //TODO test with debugTime
         const dateNow = new Date();
 
-        const timeNow = new Time(dateNow);
+        const nowTime = new Time(dateNow);
 
         for (const property in times) {    
 
             const initTime = new Time(times[property]);
 
-            const actualTime = timeNow.getDiff(initTime);
-
-            this.#timers[property].time = actualTime;
+            this.#timers[property].countTime(initTime, nowTime);
         }
 
         this.#setTimes(this.#timers.toString());

@@ -1,17 +1,10 @@
 export default class Time {
 
-    hours;
-    minutes;
-    seconds;
-
-    #hoursEnded = false;
-    #minutesEnded = false;
-    #endTime;
+    hours = 0;
+    minutes = 0;
+    seconds = 0;
 
     constructor(timeInput) {
-
-        //this.#endTime = new Time("00:00:00");
-
 
         if (timeInput instanceof Date) {
 
@@ -27,35 +20,85 @@ export default class Time {
             this.minutes = parseInt(time[1]);
             this.seconds = parseInt(time[2]);
         }
-        else if (timeInput.hours &&
-                timeInput.minutes &&
-                timeInput.seconds) {
-            
-            this.hours = parseInt(timeInput.hours);
-            this.minutes = parseInt(timeInput.minutes);
-            this.seconds = parseInt(timeInput.seconds);
+        else {
+
+            const parsedTime = {
+                hours: parseInt(timeInput.hours),
+                minutes: parseInt(timeInput.minutes),
+                seconds: parseInt(timeInput.seconds)
+            };
+
+            this.hours = !isNaN(parsedTime.hours)
+                        ? parsedTime.hours
+                        : 0;
+
+            this.minutes = !isNaN(parsedTime.minutes)
+                        ? parsedTime.minutes
+                        : 0;
+
+            this.seconds = !isNaN(parsedTime.seconds)
+                        ? parsedTime.seconds
+                        : 0;
         }
     }
 
-    getDiff(time) {
+    getDiff(time, isCountDown = false) {
 
         const diffTime = {
-            hours: this.hours > time.hours
-            ? this.hours - time.hours
-            : 24 - time.hours + this.hours,
-            
-            minutes: this.minutes > time.minutes 
-            ? this.minutes - time.minutes
-            : 60 - time.minutes + this.minutes,
-            
-            seconds: this.seconds > time.seconds
-            ? this.seconds - time.seconds
-            : 60 - time.seconds + this.seconds,
+            hours: 0,
+            minutes: 0,
+            seconds: 0
         };
 
-        return new Time(diffTime);
+
+        if(isCountDown) {
+
+            const nowTotal = this.toSeconds();
+            const initTotal = time.toSeconds();
+
+            const diff = initTotal - nowTotal; 
+
+            if (diff < 0) {
+
+                diffTime.hours = 0;
+                diffTime.minutes = 0;
+                diffTime.seconds = 0;
+            }
+            else {
+
+                diffTime.hours = parseInt(diff / 60 / 60);
+                diffTime.minutes = parseInt(diff / 60 % 60);
+                diffTime.seconds = parseInt(diff % 60);
+            }
+        }
+        else {
+
+            //basic timer
+            diffTime.hours = 
+                    this.hours > time.hours
+                    ? this.hours - time.hours
+                    : 24 - time.hours + this.hours;
+            
+            diffTime.minutes =
+                    this.minutes > time.minutes 
+                    ? this.minutes - time.minutes
+                    : 60 - time.minutes + this.minutes;
+            
+            diffTime.seconds = 
+                this.seconds > time.seconds
+                ? this.seconds - time.seconds
+                : 60 - time.seconds + this.seconds;
+        }
+
+        return diffTime;
     }
 
+    isZero() {
+
+        return this.hours === 0 &&
+                this.minutes === 0 &&
+                this.seconds === 0;
+    }
 
     //#region Increase/Decrease Seconds
     
@@ -71,6 +114,7 @@ export default class Time {
     
     //#endregion
 
+    //#region to String/Seconds
 
     toString() {
 
@@ -80,6 +124,15 @@ export default class Time {
 
         return `${hoursOutput}:${minutesOutput}:${secondsOutput}`;
     }
+
+    toSeconds() {
+
+        return this.hours * 60 * 60 +  
+                this.minutes * 60 +
+                this.seconds;
+    }
+
+    //#endregion
 
     //#region Add Seconds/Minutes/Hours
     

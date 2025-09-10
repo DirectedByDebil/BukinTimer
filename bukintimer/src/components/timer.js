@@ -2,6 +2,7 @@ import Time from "./time";
 
 export default class Timer {
 
+    #isWorking = false;
     #isCountDown = false;    
     #isCountDownEnded;
 
@@ -11,6 +12,24 @@ export default class Timer {
 
         this.#isCountDown = isCountDown;
         this.#isCountDownEnded = isCountDownEnded;
+    }
+
+    
+    countTime(initTime, nowTime) {
+
+        const actualTime = nowTime.getDiff(initTime, this.#isCountDown);
+
+        this.#time = new Time(actualTime);
+
+        if(this.#time.isZero()) {
+
+            this.#isWorking = false;
+            //this.#isCountDownEnded();
+        }
+        else {
+
+            this.#isWorking = true;
+        }
     }
 
 
@@ -30,6 +49,10 @@ export default class Timer {
 
 
     makeStep () {
+
+        if (!this.#isWorking) {
+            return;
+        }
 
         if (this.#isCountDown) {
 
