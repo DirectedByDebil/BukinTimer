@@ -7,7 +7,7 @@ export default function ButtonSelectPerson( {onClick}) {
             className="button-select-person"
             onClick={onClick}
             aria-label="Выбрать персонажа">
-            <img src={icon_person} className='icon-button'></img>
+            <img src={icon_person} className='icon-button' alt='Выбрать персонажа'></img>
         </button>
     );
 }

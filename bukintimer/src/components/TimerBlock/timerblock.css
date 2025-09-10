@@ -66,18 +66,34 @@
     }
 }
 
-@media (max-width: 1240px) {
-
+@media (max-width: 1280px) {
+    .timer-block__item {
+        width: 320px;
+        height: 320px;
+    }
 }
 
-@media (max-width: 1020px) {
+@media (max-width: 1130px) {
+    .timer-block__item {
+        width: 300px;
+        height: 300px;
+    }
 
+    .timer-label {
+        font-size: 32px;
+    }
+
+    .timer-value {
+        font-size: 40px;
+    }
 }
 
+/* планшеты */
 @media (max-width: 840px) {
 
 }
 
+/* телефоны */
 @media (max-width: 700px) {
 
 }

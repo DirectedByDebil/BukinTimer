@@ -1,5 +1,9 @@
+.page-wrapper {
+    position: relative; /* это нужно, чтобы absolute внутри было относительно страницы */
+}
+
 .music-person-block {
-    position: fixed;
+    position: absolute;
     top: 25px;
     right: 20px;
     display: grid;
@@ -19,8 +23,17 @@
     align-items: center;
 }
 
+@media (max-width: 840px) {
+    .music-person-block{
+        top: 20px;
+        min-width: 0px;
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
 @media (max-width: 620px) {
     .music-person-block {
+        grid-template-columns: repeat(2, 1fr);
         position: static;
         margin: 20px auto;
         width: 50%;
