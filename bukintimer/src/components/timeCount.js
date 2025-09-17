@@ -32,7 +32,7 @@ export default class TimeCount {
                 this.end.makeStep();
             }
         };
-    };
+    }
     
     #setTimes;
 
@@ -45,8 +45,13 @@ export default class TimeCount {
 
     onTimeSet (times) {
 
-        this.setTimers(times);
-    
+        const canStart = this.setTimers(times);
+        
+        if(!canStart) {
+            return;
+        }
+
+        this.#setTimes(this.#timers.toString());
 
         //! check why this doesn't work
         if (this.#startedInterval) {
@@ -55,25 +60,29 @@ export default class TimeCount {
         }
         
         this.#startedInterval = setInterval(this.startInterval.bind(this), 1000)
-    };
+    }
     
     
     setTimers(times) {
         
         //TODO test with debugTime
+        //const testNow = "8:34:00";
         const dateNow = new Date();
 
         const nowTime = new Time(dateNow);
+        const initTimes = [];
 
         for (const property in times) {    
 
             const initTime = new Time(times[property]);
+            initTimes[property] = initTime;
 
             this.#timers[property].countTime(initTime, nowTime);
         }
 
-        this.#setTimes(this.#timers.toString());
-    };
+        return nowTime.isBigger(initTimes.start) &&
+        nowTime.isLesser(initTimes.end);
+    }
 
     
     startInterval () {
@@ -81,7 +90,7 @@ export default class TimeCount {
         this.#timers.makeStep();
         
         this.#setTimes(this.#timers.toString());
-    };
+    }
 }
 
 

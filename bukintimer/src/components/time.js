@@ -42,6 +42,8 @@ export default class Time {
         }
     }
 
+    //#region Compare Time
+    
     getDiff(time, isCountDown = false) {
 
         const diffTime = {
@@ -92,6 +94,30 @@ export default class Time {
 
         return diffTime;
     }
+    
+    isBigger(time) {
+
+        return (this.hours > time.hours) ||
+
+        (this.hours === time.hours &&
+            this.minutes > time.minutes) ||
+        
+            (this.hours === time.hours &&
+            this.minutes === time.minutes &&
+            this.seconds > time.seconds);
+    }
+    
+    isLesser(time) {
+
+        return (this.hours < time.hours) ||
+
+        (this.hours === time.hours &&
+            this.minutes < time.minutes) ||
+        
+            (this.hours === time.hours &&
+            this.minutes === time.minutes &&
+            this.seconds < time.seconds);
+    }
 
     isZero() {
 
@@ -99,6 +125,8 @@ export default class Time {
                 this.minutes === 0 &&
                 this.seconds === 0;
     }
+
+    //#endregion
 
     //#region Increase/Decrease Seconds
     
