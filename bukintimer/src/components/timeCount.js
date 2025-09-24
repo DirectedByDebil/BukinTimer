@@ -36,14 +36,12 @@ export default class TimeCount {
     
     #setTimes;
 
-    #startedInterval;
-
     #timers = {};
 
     //TODO onLunchEnded
     //TODO onEnded
 
-    onTimeSet (times) {
+    onTimeSet (session, times) {
 
         const canStart = this.setTimers(times);
         
@@ -53,13 +51,12 @@ export default class TimeCount {
 
         this.#setTimes(this.#timers.toString());
 
-        //! check why this doesn't work
-        if (this.#startedInterval) {
+        if (session.interval) {
             
-            clearInterval(this.#startedInterval);
+            clearInterval(session.interval);
         }
         
-        this.#startedInterval = setInterval(this.startInterval.bind(this), 1000)
+        session.interval = setInterval(this.startInterval.bind(this), 1000)
     }
     
     

@@ -77,8 +77,9 @@ export default class Time {
 
             //basic timer
             diffTime.hours = 
-                    this.hours > time.hours
+                    this.hours >= time.hours
                     ? this.hours - time.hours
+                    //todo maybe just 0
                     : 24 - time.hours + this.hours;
             
             diffTime.minutes =

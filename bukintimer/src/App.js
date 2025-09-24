@@ -12,18 +12,21 @@ import TimeCount from './components/timeCount';
 import genaImg from "./assets/gena.png";
 import patrickImg from "./assets/patrick.png";
 import igorImg from "./assets/igor.png";
-
+//todo move to some factory
 const persons = [
     { id: 1, name: "Гена Букин", img: genaImg },
     { id: 2, name: "Патрик Бейтман", img: patrickImg },
     { id: 3, name: "Игорь Войтенко", img: igorImg },
 ];
 
+let session = {
+    interval: null
+};
 
 
 export default function App() {
 
-    const [times, setTimes] = useState({start: "1", lunch: "2", end:"3"});
+    const [times, setTimes] = useState({start: "00:00:00", lunch: "00:00:00", end:"00:00:00"});
     const [selectedPerson, setSelectedPerson] = useState(persons[0]);
 
     //TODO replace to some theme factory
@@ -43,7 +46,7 @@ export default function App() {
 
     const timeCount = new TimeCount(setTimes);
     
-    const onTimeSet = timeCount.onTimeSet.bind(timeCount);
+    const onTimeSet = timeCount.onTimeSet.bind(timeCount, session);
 
     return (
     <>
