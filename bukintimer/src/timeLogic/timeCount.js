@@ -65,6 +65,7 @@ export default class TimeCount {
     setTimers(times) {
         
         //TODO test with debugTime
+        //! test with '15:00:00'
         //const testNow = "8:34:00";
         const dateNow = new Date();
 

@@ -12,7 +12,7 @@ export default function ModalWindowPersons({ onClose, persons, selectedPerson, s
         <div className='modalWindow__container' onClick={handleBackdropClick}>
             <div className='modalWindow__content'>
                 <span className='modalWindow__close-btn' onClick={onClose}>&times;</span>
-                
+                //todo make it grid (not list)
                 <div  className='modalWindow__list-container'>
 
                     <div className='modalWindow__list-persons'>
