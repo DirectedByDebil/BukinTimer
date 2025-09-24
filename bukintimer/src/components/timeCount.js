@@ -3,10 +3,8 @@ import Timer from "./timer";
 
 export default class TimeCount {
     
-    constructor(setTimes) {
-
-        this.#setTimes = setTimes;
-
+    constructor() {
+        
         const isCountDown = true;
 
         this.#timers = 
@@ -34,6 +32,10 @@ export default class TimeCount {
         };
     }
     
+    set setTimes(setTimes) {
+        this.#setTimes = setTimes;
+    }
+
     #setTimes;
 
     #timers = {};

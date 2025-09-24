@@ -19,10 +19,32 @@ const persons = [
     { id: 3, name: "Игорь Войтенко", img: igorImg },
 ];
 
-let session = {
-    interval: null
+//? maybe better use useRef or useCallback
+const session = {
+    interval: null,
+    lastInitTimes: {}
 };
 
+const timeCount = new TimeCount();
+
+function SetTime (times) {
+
+    timeCount.onTimeSet(session, times);
+    session.lastInitTimes = times;
+}
+
+document.addEventListener('visibilitychange', () => {
+    
+    if(document.hidden) {
+        
+        clearInterval(session.interval);
+    }
+    else {
+        
+        SetTime(session.lastInitTimes);
+        //todo update character phrase
+    }
+});
 
 export default function App() {
 
@@ -43,17 +65,14 @@ export default function App() {
     document.documentElement.style.setProperty('--bg-color', randomColor);
     }, []);
 
-
-    const timeCount = new TimeCount(setTimes);
-    
-    const onTimeSet = timeCount.onTimeSet.bind(timeCount, session);
+    timeCount.setTimes = setTimes;
 
     return (
     <>
         <main>
         <BackgroundShapes/>
         <InstallationBlock
-        onTimeChanged={onTimeSet}
+        onTimeChanged={SetTime}
         />
         
         <MusicPersonBlock 
