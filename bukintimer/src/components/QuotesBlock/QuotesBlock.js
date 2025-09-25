@@ -11,7 +11,7 @@ export default function QuotesBlock({ person, quote, onQuoteClick }) {
             </label>
         </div>
         <div className='quotes-block__avatar-container'>
-            <img src={person.img} className="quotes-block__avatar" alt={person.name} />
+            <img src={person.img} className="quotes-block__avatar" alt={person.title} />
         </div>
         </div>
     );

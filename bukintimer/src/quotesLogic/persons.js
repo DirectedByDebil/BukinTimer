@@ -3,18 +3,18 @@ import patrickImg from "../assets/patrick.png";
 import igorImg from "../assets/igor.png"
 
 export const persons = [
-    //todo id, name, title
-    { id: 1, name: "Гена Букин", img: genaImg },
-    { id: 2, name: "Патрик Бейтман", img: patrickImg },
-    { id: 3, name: "Игорь Войтенко", img: igorImg },
+
+    { id: 1, name: "Gena", title: "Гена Букин", topic: "Отец хуйни не скажет", img: genaImg },
+    { id: 2, name: "Patrick", title: "Патрик Бейтман", topic: "Пора делать мьюинг", img: patrickImg },
+    { id: 3, name: "Igor", title: "Игорь Войтенко", topic: "Запомни, Брат!", img: igorImg },
     
     //todo add characters from anecdots
-    { id: 4, name: "Новый русский", img: genaImg },
-    { id: 5, name: "Штирлиц", img: patrickImg },
-    { id: 6, name: "Поручик Ржевский", img: igorImg },
+    { id: 4, name: "Russian", title: "Новый русский", topic: "Саша Белый", img: genaImg },
+    { id: 5, name: "Stirlitz", title: "Штирлиц", topic: "Советский шпион", img: patrickImg },
+    { id: 6, name: "Rzhevskiy", title: "Поручик Ржевский", topic: "Гусары, молчать!", img: igorImg },
 ];
 
-
+//? maybe add topic to every quote
 export const personsQuotes = {
 
     'Gena': [

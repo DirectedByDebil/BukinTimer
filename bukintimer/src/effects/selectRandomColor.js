@@ -1,3 +1,5 @@
+import { shuffle } from "lodash";
+
 const colors = [
     '#B7DA5D',
     '#FF5170',
@@ -9,7 +11,14 @@ const colors = [
     '#d2df1bff'
 ];
 
+//? if we wanna change colors in runtime
+let randomColors = [];
+
 export default function selectRandomColor () {
-    const color = Math.floor(Math.random() * colors.length);
-    return colors[color];
+
+    if(randomColors.length === 0) {
+        randomColors = shuffle(colors);
+    }
+
+    return randomColors.pop();
 };

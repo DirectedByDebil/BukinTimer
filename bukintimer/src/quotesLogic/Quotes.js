@@ -30,18 +30,28 @@ export default class Quotes {
         const day = now.getDay();
 
         const topic = weekDays[day];
-        const jokes = quotesByDayProgress[day];
+        const jokes = shuffle(quotesByDayProgress[day]);
 
         jokes.map((item)=>{
             
             this.#baseQuotes.push(
-                {topic: topic, joke: item}
+                this.#generateQuote(topic, item)
             );
         });
     }
 
-    updateQuote() {
+    getBaseQuote() {
 
+        if(this.#baseQuotes.length > 0) {
+            return this.#baseQuotes[0];
+        }
+        else {
+            return {topic: "Тема шутки", joke: "Шутка"};
+        }
+    }
+
+    updateQuote() {
+        //todo check if character changed
         if(this.#quotes.length === 0) {
             
             this.#addQuotesFromKeys();
@@ -54,19 +64,43 @@ export default class Quotes {
     
     #addQuotesFromKeys() {
         
-        //use character quotes
-        const phrases = personsQuotes['Gena'];
-    
-        const quotes = [];
-        phrases.map((item) => {
-            quotes.push({topic: "Мудрость Гены", joke: item});
-        });
-        
-        //? maybe better concat with #quotes
-        this.#quotes = concat(this.#baseQuotes, quotes);
+        this.#quotes = concat(this.#baseQuotes, this.#getPersonQuotes());
     
         //todo use progress-based quotes
     
         this.#quotes = shuffle(this.#quotes);
+    }
+
+    #getPersonQuotes() {
+
+        let personName;
+        let personTopic;
+
+        const person = this.#keys.selectedPerson;
+        if (!isNil(person)) {
+
+            personName = person.name;
+            personTopic = person.topic;
+        }
+        else {
+            personName = 'Gena';
+            personTopic = 'ЫЫЫЫЫы';
+        }
+
+        const phrases = personsQuotes[personName];
+    
+        const quotes = [];
+        phrases.map((item) => {
+
+            quotes.push(
+                this.#generateQuote(personTopic, item)
+            );
+        });
+
+        return quotes;
+    }
+
+    #generateQuote(topic, joke) {
+        return {topic: topic, joke: joke};
     }
 }

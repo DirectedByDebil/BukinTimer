@@ -26,8 +26,6 @@ function SetTime (times) {
 
     timeCount.onTimeSet(session, times);
     session.lastInitTimes = times;
-
-    //todo update character phrase
 }
 
 document.addEventListener('visibilitychange', () => {
@@ -40,8 +38,8 @@ document.addEventListener('visibilitychange', () => {
         
         SetTime(session.lastInitTimes);
         
-        //todo update character phrase
         quotes.keys = {initTimes: session.lastInitTimes};
+        quotes.updateQuote();
     }
 });
 
@@ -49,7 +47,7 @@ export default function App() {
 
     const [times, setTimes] = useState({start: "00:00:00", lunch: "00:00:00", end:"00:00:00"});
     const [selectedPerson, setSelectedPerson] = useState(persons[0]);
-    const [quote, setQuote] = useState({topic:"Topic", joke:"Joke"});
+    const [quote, setQuote] = useState(quotes.getBaseQuote());
 
     useEffect(() => {
     const randomColor = selectRandomColor();

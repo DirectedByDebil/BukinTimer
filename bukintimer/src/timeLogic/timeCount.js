@@ -1,5 +1,6 @@
 import Time from "./time";
 import Timer from "./timer";
+import { has } from "lodash";
 
 export default class TimeCount {
     
@@ -43,8 +44,13 @@ export default class TimeCount {
     //TODO onLunchEnded
     //TODO onEnded
 
-    //todo check times
     onTimeSet (session, times) {
+
+        if (!has(times, 'start') ||
+            !has(times, 'lunch') ||
+            !has(times, 'end')) {
+            return;
+        }
 
         const canStart = this.setTimers(times);
         
