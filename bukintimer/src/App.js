@@ -9,6 +9,7 @@ import MusicPersonBlock from './components/MusicPersonBlock/MusicPersonBlock';
 import TimeCount from './timeLogic/timeCount';
 import {persons} from './quotesLogic/persons';
 import selectRandomColor from './effects/selectRandomColor';
+import Quotes from './quotesLogic/Quotes';
 
 //? maybe better use useRef or useCallback
 const session = {
@@ -18,10 +19,15 @@ const session = {
 
 const timeCount = new TimeCount();
 
+const quotes = new Quotes();
+quotes.generateBaseQuotes();
+
 function SetTime (times) {
 
     timeCount.onTimeSet(session, times);
     session.lastInitTimes = times;
+
+    //todo update character phrase
 }
 
 document.addEventListener('visibilitychange', () => {
@@ -33,7 +39,9 @@ document.addEventListener('visibilitychange', () => {
     else {
         
         SetTime(session.lastInitTimes);
+        
         //todo update character phrase
+        quotes.keys = {initTimes: session.lastInitTimes};
     }
 });
 
@@ -41,6 +49,7 @@ export default function App() {
 
     const [times, setTimes] = useState({start: "00:00:00", lunch: "00:00:00", end:"00:00:00"});
     const [selectedPerson, setSelectedPerson] = useState(persons[0]);
+    const [quote, setQuote] = useState({topic:"Topic", joke:"Joke"});
 
     useEffect(() => {
     const randomColor = selectRandomColor();
@@ -49,6 +58,12 @@ export default function App() {
     }, []);
 
     timeCount.setTimes = setTimes;
+    quotes.setQuote = setQuote;
+    
+    quotes.keys = {
+        selectedPerson: selectedPerson,
+        times: times
+    };
 
     return (
     <>
@@ -68,6 +83,8 @@ export default function App() {
         />
         <QuotesBlock 
         person={selectedPerson}
+        quote={quote}
+        onQuoteClick={quotes.updateQuote.bind(quotes)}
         />
         </main>
     </>

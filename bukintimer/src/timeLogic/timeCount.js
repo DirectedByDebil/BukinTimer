@@ -43,6 +43,7 @@ export default class TimeCount {
     //TODO onLunchEnded
     //TODO onEnded
 
+    //todo check times
     onTimeSet (session, times) {
 
         const canStart = this.setTimers(times);
