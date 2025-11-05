@@ -14,7 +14,8 @@ import Quotes from './quotesLogic/Quotes';
 //? maybe better use useRef or useCallback
 const session = {
     interval: null,
-    lastInitTimes: {}
+    lastInitTimes: {},
+    dayProgress: null
 };
 
 const timeCount = new TimeCount();
@@ -48,6 +49,7 @@ export default function App() {
     const [times, setTimes] = useState({start: "00:00:00", lunch: "00:00:00", end:"00:00:00"});
     const [selectedPerson, setSelectedPerson] = useState(persons[0]);
     const [quote, setQuote] = useState(quotes.getBaseQuote());
+    const [dayProgress, setDayProgress] = useState('Before work');
 
     useEffect(() => {
     const randomColor = selectRandomColor();
@@ -56,11 +58,12 @@ export default function App() {
     }, []);
 
     timeCount.setTimes = setTimes;
+    timeCount.setDayProgress = setDayProgress;
     quotes.setQuote = setQuote;
     
     quotes.keys = {
         selectedPerson: selectedPerson,
-        times: times
+        dayProgress: dayProgress
     };
 
     return (

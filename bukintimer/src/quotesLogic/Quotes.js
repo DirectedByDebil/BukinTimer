@@ -1,5 +1,5 @@
 import { weekDays, quotesByDayProgress } from "./quotesData";
-import { personsQuotes } from "./persons";
+import { personsQuotes, progressPersonsQuotes } from "./persons";
 import {extend, isNil, concat, shuffle} from "lodash"
 
 export default class Quotes {
@@ -65,26 +65,22 @@ export default class Quotes {
     #addQuotesFromKeys() {
         
         this.#quotes = concat(this.#baseQuotes, this.#getPersonQuotes());
-    
-        //todo use progress-based quotes
-    
+        this.#quotes = concat(this.#quotes, this.#getProgressQuotes());
+        
         this.#quotes = shuffle(this.#quotes);
     }
 
     #getPersonQuotes() {
 
-        let personName;
-        let personTopic;
+        // init values
+        let personName = 'Gena';
+        let personTopic = 'ЫЫЫЫЫыы';
 
         const person = this.#keys.selectedPerson;
         if (!isNil(person)) {
 
             personName = person.name;
             personTopic = person.topic;
-        }
-        else {
-            personName = 'Gena';
-            personTopic = 'ЫЫЫЫЫы';
         }
 
         const phrases = personsQuotes[personName];
@@ -94,6 +90,37 @@ export default class Quotes {
 
             quotes.push(
                 this.#generateQuote(personTopic, item)
+            );
+        });
+
+        return quotes;
+    }
+
+    #getProgressQuotes() {
+
+        // init values
+        let personName = 'Gena';
+        let timeCondition = 'Before work';
+
+        //todo this code duplicates
+        //todo refactor
+        if (!isNil(this.#keys.selectedPerson)) {
+
+            personName = this.#keys.selectedPerson.name;
+        }
+        
+        if(!isNil(this.#keys.dayProgress)){
+            
+            timeCondition = this.#keys.dayProgress;            
+        }
+        
+        const quotes = [];
+        const phrases = progressPersonsQuotes[personName][timeCondition];
+
+        phrases.map((item) => {
+
+            quotes.push(
+                this.#generateQuote(timeCondition, item)
             );
         });
 

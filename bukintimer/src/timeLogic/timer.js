@@ -24,7 +24,7 @@ export default class Timer {
         if(this.#time.isZero()) {
 
             this.#isWorking = false;
-            //this.#isCountDownEnded();
+            this.#isCountDownEnded();
         }
         else {
 

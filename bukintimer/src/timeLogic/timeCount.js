@@ -1,6 +1,6 @@
 import Time from "./time";
 import Timer from "./timer";
-import { has } from "lodash";
+import { has, isNil } from "lodash";
 
 export default class TimeCount {
     
@@ -8,11 +8,14 @@ export default class TimeCount {
         
         const isCountDown = true;
 
+        const onLunchEnded = this.#onLunchEnded;
+        const onWorkEnded = this.#onWorkEnded;
+
         this.#timers = 
         {
             start: new Timer(!isCountDown),
-            lunch: new Timer(isCountDown),
-            end: new Timer(isCountDown),
+            lunch: new Timer(isCountDown, onLunchEnded),
+            end: new Timer(isCountDown, onWorkEnded),
 
             toString() {
 
@@ -32,17 +35,22 @@ export default class TimeCount {
             }
         };
     }
-    
+
+    //#region Setters
     set setTimes(setTimes) {
         this.#setTimes = setTimes;
     }
 
+    set setDayProgress(setDayProgress) {
+        this.#setDayProgress = setDayProgress;
+    }
+    //#endregion
+
     #setTimes;
+    #setDayProgress;
 
     #timers = {};
 
-    //TODO onLunchEnded
-    //TODO onEnded
 
     onTimeSet (session, times) {
 
@@ -59,6 +67,7 @@ export default class TimeCount {
         }
 
         this.#setTimes(this.#timers.toString());
+        this.#setDayProgress('Before lunch');
 
         if (session.interval) {
             
@@ -87,6 +96,18 @@ export default class TimeCount {
             this.#timers[property].countTime(initTime, nowTime);
         }
 
+        if (nowTime.isLesser(initTimes.start)) {
+
+            this.#setDayProgress('Before work');
+            return false;
+        }
+
+        if (nowTime.isBigger(initTimes.end)) {
+
+            this.#setDayProgress('After work');
+            return false;
+        }
+
         return nowTime.isBigger(initTimes.start) &&
         nowTime.isLesser(initTimes.end);
     }
@@ -98,6 +119,24 @@ export default class TimeCount {
         
         this.#setTimes(this.#timers.toString());
     }
+
+    //#region On Lunch/Work Ended
+    #onLunchEnded(){
+
+        if(!isNil(this.#setDayProgress)){
+
+            this.#setDayProgress('After Lunch')
+        }
+    }
+
+    #onWorkEnded() {
+
+        if(!isNil(this.#setDayProgress)){
+
+            this.#setDayProgress('After Work')
+        }
+    }
+    //#endregion
 }
 
 
