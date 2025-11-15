@@ -1,6 +1,6 @@
 import { weekDays, quotesByDayProgress } from "./quotesData";
-import { personsQuotes, progressPersonsQuotes } from "./persons";
-import {extend, isNil, concat, shuffle} from "lodash"
+import { persons, personsQuotes, progressPersonsQuotes, personsTimeConditions } from "./persons";
+import {extend, concat, shuffle} from "lodash"
 
 export default class Quotes {
 
@@ -11,8 +11,15 @@ export default class Quotes {
     }
 
     set keys(keys) {
+        const currentPerson = this.#keys.selectedPerson;
         
         extend(this.#keys, keys);
+        
+        if (currentPerson && keys.selectedPerson !== currentPerson) {
+
+            this.#quotes.length = 0;
+            this.updateQuote();
+        }
     }
 
     //#endregion
@@ -51,7 +58,7 @@ export default class Quotes {
     }
 
     updateQuote() {
-        //todo check if character changed
+
         if(this.#quotes.length === 0) {
             
             this.#addQuotesFromKeys();
@@ -72,16 +79,10 @@ export default class Quotes {
 
     #getPersonQuotes() {
 
-        // init values
-        let personName = 'Gena';
-        let personTopic = 'ЫЫЫЫЫыы';
+        const person = this.#keys.selectedPerson || persons[0];
 
-        const person = this.#keys.selectedPerson;
-        if (!isNil(person)) {
-
-            personName = person.name;
-            personTopic = person.topic;
-        }
+        const personName = person.name;
+        const personTopic = person.topic;
 
         const phrases = personsQuotes[personName];
     
@@ -98,24 +99,14 @@ export default class Quotes {
 
     #getProgressQuotes() {
 
-        // init values
-        let personName = 'Gena';
-        let timeCondition = 'Before work';
-
-        //todo this code duplicates
-        //todo refactor
-        if (!isNil(this.#keys.selectedPerson)) {
-
-            personName = this.#keys.selectedPerson.name;
-        }
-        
-        if(!isNil(this.#keys.dayProgress)){
-            
-            timeCondition = this.#keys.dayProgress;            
-        }
+        const person = this.#keys.selectedPerson || persons[0];
+        const personName = person.name;
+        const timeConditionKey = this.#keys.dayProgress || 'Before work';
         
         const quotes = [];
-        const phrases = progressPersonsQuotes[personName][timeCondition];
+        const phrases = progressPersonsQuotes[personName][timeConditionKey];
+        const timeCondition = personsTimeConditions[personName][timeConditionKey];
+
 
         phrases.map((item) => {
 

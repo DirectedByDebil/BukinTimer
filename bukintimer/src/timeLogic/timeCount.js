@@ -8,8 +8,8 @@ export default class TimeCount {
         
         const isCountDown = true;
 
-        const onLunchEnded = this.#onLunchEnded;
-        const onWorkEnded = this.#onWorkEnded;
+        const onLunchEnded = this.#onLunchEnded.bind(this);
+        const onWorkEnded = this.#onWorkEnded.bind(this);
 
         this.#timers = 
         {

@@ -106,14 +106,14 @@ export const personsTimeConditions = {
 
 
     'Gena':{
-        'Before work':'',
+        'Before work':'Перед пахотой',
         'Before lunch':'Ждём Обед!!!',
-        'After lunch':'',
-        'After work':''
+        'After lunch':'Ждём дивана!!!',
+        'After work':'На диване, с сиськой пива'
     },
 
     'Patrick':{
-        'Before work':'',
+        'Before work':'Утренняя разминка',
         'Before lunch':'Сигма перед обедом',
         'After lunch':'Сигма восполнил баланс белков и углеводов',
         'After work':'Сигма никогда не отдыхает'
@@ -127,21 +127,21 @@ export const personsTimeConditions = {
     },
     
     'Russian':{
-        'Before work':['Вышли в один год с ним мы: он с завода - я с тюрьмы'],
+        'Before work':['Блатные ещё дома'],
         'Before lunch':'Обед для русских',
         'After lunch':['Я, как Томмас Шелби'],
         'After work':['Плачу налом']
     },
 
     'Stirlitz': {
-        'Before work':['Да я советский шпион!'],
+        'Before work':['Доброе утро, товарищ Сталин!'],
         'Before lunch':'Wann gibt es Mittagessen?',
         'After lunch':['Осьминог стучит...'],
         'After work':['Вот же сволочь усатая']
     },
 
     'Rzhevskiy': {
-        'Before work':['Гусары, молчать!'],
+        'Before work':['Гусары, ещё не время'],
         'Before lunch':'Господа, где перекус-с?',
         'After lunch':['В точности анекдот не помню, но в конце всех четверых...'],
         'After work':['Наташа, а Вы что, без трусиков?']
