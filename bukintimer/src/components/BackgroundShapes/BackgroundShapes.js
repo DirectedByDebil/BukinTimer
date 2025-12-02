@@ -1,6 +1,6 @@
 import './backgroundshapes.css'
 
-export default function BackgroundShapes(){
+export function BackgroundShapes(){
     return(
         <div className="background-shapes">
             <div className="shape"></div>

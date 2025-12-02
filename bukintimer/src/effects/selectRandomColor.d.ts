@@ -1,0 +1,1 @@
+export declare function selectRandomColor (): any;

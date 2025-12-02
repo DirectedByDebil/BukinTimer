@@ -1,0 +1,1 @@
+export declare function ButtonSelectPerson( {onClick}: {onClick: () => void});
