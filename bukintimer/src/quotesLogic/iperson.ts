@@ -18,7 +18,7 @@ export interface IPersonQuotes {
 
 export type DayState = 'Before work' | 'Before lunch' | 'After lunch' | 'After work';
 
-interface IDayProgressQuotes {
+export interface IDayProgressQuotes {
     dayState: DayState,
     topic: string,
     quotes: string[]

@@ -1,19 +1,23 @@
-import { weekDays, quotesByDayProgress } from "./quotesData";
-import { persons, personsQuotes, progressPersonsQuotes, personsTimeConditions } from "./persons";
+//@ts-check
+import { persons, personsQuotes, progressPersonsQuotes, dayQuotes } from "./persons.ts";
 import { IQuote, generateQuote, getBaseQuote } from "./quote";
+import { shuffle } from "../utils/myLodash.ts";
+import {IKeys} from './ikeys.ts'
+import { IPerson, IPersonDayProgressQuotes, IDayProgressQuotes, DayState } from "./iperson.ts";
 
 export class Quotes {
 
     //#region setters
 
-    set setQuote (setQuote) {
+    set setQuote (setQuote: any) {
         this.#setQuote = setQuote;
     }
 
-    set keys(keys) {
+    //todo refactor this shit
+    set keys (keys: IKeys) {
         const currentPerson = this.#keys.selectedPerson;
         
-        extend(this.#keys, keys);
+        Object.assign(this.#keys, keys);
         
         if (currentPerson && keys.selectedPerson !== currentPerson) {
 
@@ -26,18 +30,24 @@ export class Quotes {
 
     #setQuote: any;
 
-    #keys = {};
+    #keys: IKeys = {};
     #baseQuotes: IQuote[] = [];
     #quotes: IQuote[] = [];
 
 
     generateBaseQuotes(){
 
-        const now = new Date();
+        const now: Date = new Date();
         const day: number = now.getDay();
 
-        const topic = weekDays[day];
-        const jokes = shuffle(quotesByDayProgress[day]);
+        const quotesObj = dayQuotes.find((item) => item.day === day);
+
+        if (!quotesObj) {
+            return;
+        }
+
+        const topic = quotesObj.topic;
+        const jokes = shuffle(quotesObj.quotes);
 
         jokes.map((item)=>{
             
@@ -70,23 +80,26 @@ export class Quotes {
     
     #addQuotesFromKeys() {
         
-        this.#quotes = concat(this.#baseQuotes, this.#getPersonQuotes());
-        this.#quotes = concat(this.#quotes, this.#getProgressQuotes());
+        this.#quotes = this.#baseQuotes.concat(this.#getPersonQuotes());
+        this.#quotes = this.#quotes.concat(this.#getProgressQuotes());
         
         this.#quotes = shuffle(this.#quotes);
     }
 
-    #getPersonQuotes() {
+    #getPersonQuotes(): IQuote[] {
 
         const person = this.#keys.selectedPerson || persons[0];
 
         const personName = person.name;
         const personTopic = person.topic;
 
-        const phrases = personsQuotes[personName];
-    
-        const quotes = [];
-        phrases.map((item) => {
+        const phrases = personsQuotes.find((person) => person.name === personName);
+        if (!phrases) {
+            return [];
+        }
+
+        const quotes: IQuote[] = [];
+        phrases.quotes.map((item) => {
 
             quotes.push(
                 generateQuote(personTopic, item)
@@ -96,21 +109,33 @@ export class Quotes {
         return quotes;
     }
 
-    #getProgressQuotes() {
+    #getProgressQuotes(): IQuote[] {
 
-        const person = this.#keys.selectedPerson || persons[0];
-        const personName = person.name;
-        const timeConditionKey = this.#keys.dayProgress || 'Before work';
+        const person: IPerson = this.#keys.selectedPerson || persons[0];
+        const personName: string = person.name;      
+
+        const quotesObj: IPersonDayProgressQuotes | undefined = progressPersonsQuotes
+            .find((item) => item.name === personName);
         
-        const quotes = [];
-        const phrases = progressPersonsQuotes[personName][timeConditionKey];
-        const timeCondition = personsTimeConditions[personName][timeConditionKey];
+        if (!quotesObj) {
+            return [];
+        }
 
+        const timeConditionKey: DayState = this.#keys.dayProgress || 'Before work';
+        const phrases: IDayProgressQuotes | undefined = quotesObj.quotes
+            .find((quote) => quote.dayState === timeConditionKey);
 
-        phrases.map((item) => {
+        if (!phrases) {
+            return [];
+        }
+
+        const quotes: IQuote[] = [];
+        const topic = phrases.topic;
+
+        phrases.quotes.map((item) => {
 
             quotes.push(
-                generateQuote(timeCondition, item)
+                generateQuote(topic, item)
             );
         });
 
