@@ -14,6 +14,7 @@ box-sizing: border-box;
 .quotes-block__avatar {
 width: 350px;
 height: auto;
+user-select: none;
 padding: 10px;
 object-fit: contain;
 max-height: 100%;
@@ -55,12 +56,14 @@ border-bottom: 10px solid transparent;
 
 .quotes-block__label-day {
 font-weight: bold;
+user-select: none;
 font-size: 24px;
 color: rgb(24, 24, 24);
 }
 
 .quotes-block__label-quote {
 font-size: 18px;
+user-select: none;
 color: rgb(32, 32, 32);
 line-height: 1.3;
 }

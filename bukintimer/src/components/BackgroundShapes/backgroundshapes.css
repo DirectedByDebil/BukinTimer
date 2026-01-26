@@ -84,3 +84,8 @@
         transform: translate(-40px, -50px);
     }
 }
+
+.background-shapes.animation-paused .shape {
+    animation-play-state: paused !important;
+    transition: none !important;
+}

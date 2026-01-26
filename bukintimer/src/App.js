@@ -50,12 +50,16 @@ export default function App() {
     const [selectedPerson, setSelectedPerson] = useState(persons[0]);
     const [quote, setQuote] = useState(quotes.getBaseQuote());
     const [dayProgress, setDayProgress] = useState('Before work');
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
     const randomColor = selectRandomColor();
     //TODO looks like sex, but maybe we can do this prettier
     document.documentElement.style.setProperty('--bg-color', randomColor);
     }, []);
+
+    const handleOpenModal = () => setIsModalOpen(true);
+    const handleCloseModal = () => setIsModalOpen(false);
 
     timeCount.setTimes = setTimes;
     timeCount.setDayProgress = setDayProgress;
@@ -69,7 +73,8 @@ export default function App() {
     return (
     <>
         <main>
-        <BackgroundShapes/>
+        <BackgroundShapes stopAnimation={isModalOpen}/>
+
         <InstallationBlock
         onTimeChanged={SetTime}
         />
@@ -78,15 +83,22 @@ export default function App() {
         persons={persons}
         selectedPerson={selectedPerson}
         setSelectedPerson={setSelectedPerson}
+        onOpenModal={handleOpenModal}
+        onCloseModal={handleCloseModal}
+        isModalOpen={isModalOpen}
         />
+
         <TimerBlock
         times={times}
+        stopAnimation = {isModalOpen}
         />
+
         <QuotesBlock 
         person={selectedPerson}
         quote={quote}
         onQuoteClick={quotes.updateQuote.bind(quotes)}
         />
+
         </main>
     </>
     )

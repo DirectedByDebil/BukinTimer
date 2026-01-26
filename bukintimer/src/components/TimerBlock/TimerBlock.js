@@ -1,6 +1,6 @@
 import './timerblock.css'
 
-export default function TimerBlock( { times} ){
+export default function TimerBlock( { times, stopAnimation = false } ){
 
     const default_values = [
         {label: 'С НАЧАЛА СМЕНЫ', value: times.start}, 
@@ -10,7 +10,7 @@ export default function TimerBlock( { times} ){
 
     return(
     <div className='timer-block'>
-        <div className='timer-block__container'>
+        <div className={`timer-block__container ${stopAnimation ? 'animation-paused' : ''}`}>
             {default_values.map((default_value, index) => (
             <div className='timer-block__item' key={index}>
                 <div className='timer-label'>{default_value.label}</div>

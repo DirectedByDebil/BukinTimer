@@ -6,7 +6,8 @@
     width: 100%;
     height: 100%;
     background-color: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(8px);
+    overflow: hidden;
 }
 
 .modalWindow__container {
@@ -23,11 +24,13 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 70%;
+    max-width: 1500px;
     border-radius: 16px;
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
-    max-height: 80vh;
+    max-height: 90%;
+    overflow: hidden;
 }
 
 .modalWindow__close-btn {
@@ -46,12 +49,33 @@
 }
 
 .modalWindow__list-container{
+    padding: 5px;
     margin: 30px;
+    margin-top: 45px;
+    overflow-y: auto;
+    flex: 1;
+    padding-right: 10px;
+}
+
+/* Стили для скроллбара */
+.modalWindow__list-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modalWindow__list-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+.modalWindow__list-container::-webkit-scrollbar-thumb {
+    background: var(--pink);
+    border-radius: 10px;
 }
 
 .modalWindow__list-persons{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     gap: 20px;
     
 }
@@ -71,7 +95,6 @@
     clip-path: inset(100%);
     height: 1px;
     overflow: hidden;
-    position: absolute;
     white-space: nowrap;
     width: 1px;
 }
@@ -149,12 +172,47 @@
     width: 100%;
     height: auto;
     max-height: 250px;
+    user-select: none;
     object-fit: contain;
 }
 
 .modalWindow__label {
     font-size: clamp(32px, 2vw, 40px);
     padding: 15px 0px;
+    user-select: none;
     transition: 0.3s ease;
     text-align: center;
+}
+
+
+/* Адаптация для мобильных устройств */
+@media (max-width: 768px) {
+    .modalWindow__content {
+        width: 95%;
+        height: 95vh;
+    }
+    
+    .modalWindow__list-persons {
+        grid-template-columns: 1fr;
+        min-width: 250px;
+    }
+    
+    .modalWindow__tile {
+        min-height: 300px;
+        max-height: 350px;
+    }
+}
+
+@media (max-width: 480px) {
+    .modalWindow__label {
+        padding: 0;
+    }
+    .modalWindow__tile {
+        min-height: 250px;
+        max-height: 300px;
+    }
+    
+    .modalWindow__img {
+        max-height: 200px;
+    }
 }
