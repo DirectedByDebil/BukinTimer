@@ -184,8 +184,6 @@
     text-align: center;
 }
 
-
-/* Адаптация для мобильных устройств */
 @media (max-width: 768px) {
     .modalWindow__content {
         width: 95%;

@@ -1,5 +1,5 @@
 .timer-block {
-    margin-top: 5%;
+    margin-top: 1%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -37,7 +37,7 @@
 }
 
 .timer-label {
-    font-size: 40px;
+    font-size: clamp(1.5rem, 1.8vw, 2.0rem);
     font-weight: bold;
     margin-bottom: 10px;
     text-align: center;
@@ -84,25 +84,7 @@
         height: 300px;
     }
 
-    .timer-label {
-        font-size: 32px;
-    }
-
     .timer-value {
         font-size: 40px;
     }
-}
-
-/* планшеты */
-@media (max-width: 840px) {
-
-}
-
-/* телефоны */
-@media (max-width: 700px) {
-
-}
-
-@media (max-width: 620px) {
-
 }

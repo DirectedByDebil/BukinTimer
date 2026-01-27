@@ -8,6 +8,8 @@
     margin: 20px auto;
     border: solid 5px var(--white);
     border-radius: 16px;
+    justify-content: center;
+    align-items: center;
 }
 
 .install-block__label{
@@ -67,6 +69,12 @@
     .install-block{
         width: 70%;
         grid-template-columns: repeat(1, 1fr);
+    }
+    
+    .install-block__startButton{
+        width: 92%;
+        margin: 0 auto;
+        justify-self: center;
     }
 }
 

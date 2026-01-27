@@ -1,5 +1,5 @@
 .page-wrapper {
-    position: relative; /* это нужно, чтобы absolute внутри было относительно страницы */
+    position: relative;
 }
 
 .music-person-block {
@@ -37,5 +37,6 @@
         position: static;
         margin: 20px auto;
         width: 50%;
+        padding: 5px 15px;
     }
 }
