@@ -1,6 +1,7 @@
 import Time from "./time";
 import Timer from "./timer";
-import { has, isNil } from "lodash";
+
+const TIME_SPEED = 1;
 
 export default class TimeCount {
     
@@ -34,6 +35,10 @@ export default class TimeCount {
                 this.end.makeStep();
             }
         };
+
+        this.#timers.start.id = 'start';
+        this.#timers.lunch.id = 'lunch';
+        this.#timers.end.id = 'end';
     }
 
     //#region Setters
@@ -54,15 +59,17 @@ export default class TimeCount {
 
     onTimeSet (session, times) {
 
-        if (!has(times, 'start') ||
-            !has(times, 'lunch') ||
-            !has(times, 'end')) {
+        if (!times['start'] ||
+            !times['lunch'] ||
+            !times['end']) {
             return;
         }
 
         const canStart = this.setTimers(times);
         
         if(!canStart) {
+            //todo send notify
+            alert("Something with time");
             return;
         }
 
@@ -74,7 +81,7 @@ export default class TimeCount {
             clearInterval(session.interval);
         }
         
-        session.interval = setInterval(this.startInterval.bind(this), 1000)
+        session.interval = setInterval(this.startInterval.bind(this), TIME_SPEED)
     }
     
     
@@ -82,7 +89,8 @@ export default class TimeCount {
         
         //TODO test with debugTime
         //! test with '15:00:00'
-        //const testNow = "8:34:00";
+        //const dateNow = "8:34:00";
+        //const dateNow = "13:00:00";
         const dateNow = new Date();
 
         const nowTime = new Time(dateNow);
@@ -123,17 +131,17 @@ export default class TimeCount {
     //#region On Lunch/Work Ended
     #onLunchEnded(){
 
-        if(!isNil(this.#setDayProgress)){
-
+        if(this.#setDayProgress && typeof this.#setDayProgress === 'function'){
             this.#setDayProgress('After Lunch')
+            //todo notify
         }
     }
-
+    
     #onWorkEnded() {
-
-        if(!isNil(this.#setDayProgress)){
-
+        
+        if(this.#setDayProgress && typeof this.#setDayProgress === 'function'){
             this.#setDayProgress('After Work')
+            //todo notify
         }
     }
     //#endregion

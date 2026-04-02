@@ -4,8 +4,11 @@ export default class Time {
     minutes = 0;
     seconds = 0;
 
+    bindedTimer = 'default';
+
     constructor(timeInput) {
 
+        //todo make as static functions
         if (timeInput instanceof Date) {
 
             this.hours = timeInput.getHours();
@@ -83,12 +86,12 @@ export default class Time {
                     : 24 - time.hours + this.hours;
             
             diffTime.minutes =
-                    this.minutes > time.minutes 
+                    this.minutes >= time.minutes 
                     ? this.minutes - time.minutes
                     : 60 - time.minutes + this.minutes;
             
             diffTime.seconds = 
-                this.seconds > time.seconds
+                this.seconds >= time.seconds
                 ? this.seconds - time.seconds
                 : 60 - time.seconds + this.seconds;
         }
@@ -121,10 +124,10 @@ export default class Time {
     }
 
     isZero() {
-
-        return this.hours === 0 &&
-                this.minutes === 0 &&
-                this.seconds === 0;
+        // <= is because of potential race condition
+        return this.hours <= 0 &&
+                this.minutes <= 0 &&
+                this.seconds <= 0;
     }
 
     //#endregion
@@ -164,85 +167,41 @@ export default class Time {
     //#endregion
 
     //#region Add Seconds/Minutes/Hours
-    
+        
     #addSeconds(value) {
-
-        if (Number.isInteger(value)) {
-
-            this.seconds += value;
-
-            const res = this.#clampValue(this.seconds, 0, 59);
-            this.seconds = res.value;
-/*
-            if (this.#isCountDown &&
-                this.#minutesEnded &&
-                this.seconds === 0) {
-                
-                //TODO stop
-            }
-*/
-            res.isOverClamped && this.#addMinutes(value);
+        if (!Number.isInteger(value)) return;
+        
+        this.seconds += value;
+        
+        if (this.seconds >= 60) {
+            this.seconds = 0;
+            this.#addMinutes(1);
+        } else if (this.seconds < 0) {
+            this.seconds = 59;
+            this.#addMinutes(-1);
         }
     }
 
     #addMinutes(value) {
-
         this.minutes += value;
-
-        const res = this.#clampValue(this.minutes, 0, 59);
-        this.minutes = res.value;
-/*
-        if (this.#isCountDown &&
-            this.#hoursEnded &&
-            this.minutes === 0) {
-
-            this.#minutesEnded = true;
+        
+        if (this.minutes >= 60) {
+            this.minutes = 0;
+            this.#addHours(1);
+        } else if (this.minutes < 0) {
+            this.minutes = 59;
+            this.#addHours(-1);
         }
-        else {   
-            res.isOverClamped && this.#addHours(value);
-        }
-*/
     }
 
     #addHours(value) {
-
         this.hours += value;
-
-        const res = this.#clampValue(this.hours, 0, 23);
-        this.hours = res.value;
-/*
-        if (this.#isCountDown && this.hours === 0) {
-
-            this.#hoursEnded = true;
+        
+        if (this.hours >= 24) {
+            this.hours = 0;
+        } else if (this.hours < 0) {
+            this.hours = 23;
         }
-*/
     }
-
     //#endregion
-
-
-    #clampValue(value, min, max) {
-
-        const result = {'isOverClamped': false, 'value': value};
-
-        if (value > max) {
-
-            result.value = min;
-            result.isOverClamped = true;
-        }
-        else if(value < min) {
-
-            result.value = max;
-            result.isOverClamped = true;
-        }
-
-        return result;
-    }
-
-    #equals(time){
-
-        return this.hours === time.hours &&
-            this.minutes === time.minutes &&
-            this.seconds === time.seconds;
-    }
 }

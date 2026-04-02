@@ -2,6 +2,7 @@ import Time from "./time";
 
 export default class Timer {
 
+    id = 'default';
     #isWorking = false;
     #isCountDown = false;    
     #isCountDownEnded;
@@ -19,9 +20,12 @@ export default class Timer {
 
         const actualTime = nowTime.getDiff(initTime, this.#isCountDown);
 
-        this.#time = new Time(actualTime);
+        this.time = actualTime;
+    }
 
-        if(this.#time.isZero()) {
+    checkTimerStop() {
+
+        if(this.#time && this.#time.isZero()) {
 
             this.#isWorking = false;
             this.#isCountDownEnded();
@@ -37,7 +41,12 @@ export default class Timer {
 
     set time(timeInput) {
         
+        if (this.#time) {
+            this.#time.bindedTimer = null;
+        }
         this.#time = new Time(timeInput);
+        this.#time.bindedTimer = this.id;
+        this.checkTimerStop();
     }
     
     get time() {
@@ -50,7 +59,7 @@ export default class Timer {
 
     makeStep () {
 
-        if (!this.#isWorking) {
+        if (!this.#isWorking || !this.#time) {
             return;
         }
 
@@ -62,5 +71,7 @@ export default class Timer {
             
             this.#time.increaseSeconds();
         }
+
+        this.checkTimerStop();
     }
 }
