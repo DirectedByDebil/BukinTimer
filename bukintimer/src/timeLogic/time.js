@@ -6,9 +6,11 @@ export default class Time {
 
     bindedTimer = 'default';
 
+    //#region  Constructors
+
     constructor(timeInput) {
 
-        //todo make as static functions
+        //keep as backward compatibility
         if (timeInput instanceof Date) {
 
             this.hours = timeInput.getHours();
@@ -23,7 +25,7 @@ export default class Time {
             this.minutes = parseInt(time[1]);
             this.seconds = parseInt(time[2]);
         }
-        else {
+        else if(typeof timeInput === 'object'){
 
             const parsedTime = {
                 hours: parseInt(timeInput.hours),
@@ -44,6 +46,64 @@ export default class Time {
                         : 0;
         }
     }
+
+    static createFromDate (timeInput) {
+
+        const time = new Time();
+
+        if (timeInput instanceof Date) {
+
+            time.hours = timeInput.getHours();
+            time.minutes = timeInput.getMinutes();
+            time.seconds = timeInput.getSeconds();
+        }
+        return time;
+    }
+
+    static createFromString (timeInput) {
+
+        const time = new Time();
+
+        if(typeof(timeInput) === "string") {
+
+            const timeParts = timeInput.split(':');
+
+            time.hours = parseInt(timeParts[0]);
+            time.minutes = parseInt(timeParts[1]);
+            time.seconds = parseInt(timeParts[2]);
+        }
+        return time;
+    }
+
+    static createFromObject (timeInput) {
+
+        const time = new Time();
+
+        if(typeof(timeInput) === "object") {
+
+            const parsedTime = {
+                hours: parseInt(timeInput.hours),
+                minutes: parseInt(timeInput.minutes),
+                seconds: parseInt(timeInput.seconds)
+            };
+
+            time.hours = !isNaN(parsedTime.hours)
+                        ? parsedTime.hours
+                        : 0;
+
+            time.minutes = !isNaN(parsedTime.minutes)
+                        ? parsedTime.minutes
+                        : 0;
+
+            time.seconds = !isNaN(parsedTime.seconds)
+                        ? parsedTime.seconds
+                        : 0;
+
+        }
+        return time;
+    }
+
+    //#endregion
 
     //#region Compare Time
     
@@ -82,7 +142,6 @@ export default class Time {
             diffTime.hours = 
                     this.hours >= time.hours
                     ? this.hours - time.hours
-                    //todo maybe just 0
                     : 24 - time.hours + this.hours;
             
             diffTime.minutes =

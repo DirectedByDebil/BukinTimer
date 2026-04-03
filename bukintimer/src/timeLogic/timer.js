@@ -44,7 +44,7 @@ export default class Timer {
         if (this.#time) {
             this.#time.bindedTimer = null;
         }
-        this.#time = new Time(timeInput);
+        this.#time = Time.createFromObject(timeInput);
         this.#time.bindedTimer = this.id;
         this.checkTimerStop();
     }

@@ -1,5 +1,6 @@
 import Time from "./time";
 import Timer from "./timer";
+import {dispatchEventUtil} from "../utils/eventUtils"
 
 const TIME_SPEED = 1;
 
@@ -59,9 +60,7 @@ export default class TimeCount {
 
     onTimeSet (session, times) {
 
-        if (!times['start'] ||
-            !times['lunch'] ||
-            !times['end']) {
+        if (!times['start'] || !times['lunch'] || !times['end']) {
             return;
         }
 
@@ -93,12 +92,14 @@ export default class TimeCount {
         //const dateNow = "13:00:00";
         const dateNow = new Date();
 
-        const nowTime = new Time(dateNow);
+        const nowTime = Time.createFromDate(dateNow);
+
         const initTimes = [];
 
         for (const property in times) {    
 
-            const initTime = new Time(times[property]);
+            const initTime = Time.createFromString(times[property]);
+
             initTimes[property] = initTime;
 
             this.#timers[property].countTime(initTime, nowTime);
@@ -133,7 +134,14 @@ export default class TimeCount {
 
         if(this.#setDayProgress && typeof this.#setDayProgress === 'function'){
             this.#setDayProgress('After Lunch')
-            //todo notify
+
+            if (typeof dispatchEventUtil === 'function') {
+
+                dispatchEventUtil('Timer', 'dayProgressChanged', {
+                    dayProgress: 'After Lunch',
+                    message: 'Пора на обед!'
+                });
+            }
         }
     }
     
@@ -141,7 +149,14 @@ export default class TimeCount {
         
         if(this.#setDayProgress && typeof this.#setDayProgress === 'function'){
             this.#setDayProgress('After Work')
-            //todo notify
+
+            if (typeof dispatchEventUtil === 'function') {
+
+                dispatchEventUtil('Timer', 'dayProgressChanged', {
+                    dayProgress: 'After Work',
+                    message: 'Пора домой!'
+                });
+            }
         }
     }
     //#endregion
