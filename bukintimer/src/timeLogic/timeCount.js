@@ -2,7 +2,7 @@ import Time from "./time";
 import Timer from "./timer";
 import {dispatchEventUtil} from "../utils/eventUtils"
 
-const TIME_SPEED = 1;
+const TIME_SPEED = 1000;
 
 export default class TimeCount {
     
@@ -86,40 +86,100 @@ export default class TimeCount {
     
     setTimers(times) {
         
-        //TODO test with debugTime
-        //! test with '15:00:00'
-        //const dateNow = "8:34:00";
-        //const dateNow = "13:00:00";
         const dateNow = new Date();
-
         const nowTime = Time.createFromDate(dateNow);
+        
+        //const dateNow = "02:00:00";
+        //const nowTime = Time.createFromString(dateNow);
 
         const initTimes = [];
 
         for (const property in times) {    
 
             const initTime = Time.createFromString(times[property]);
-
             initTimes[property] = initTime;
-
-            this.#timers[property].countTime(initTime, nowTime);
         }
+        
+        const isOvernight = initTimes.start.isBigger(initTimes.end);
+        
+        if (!this.isValidRange(initTimes, isOvernight)) {
+            
+            if (typeof dispatchEventUtil === 'function') {
+
+                dispatchEventUtil('Timer', 'initTimesChanges', {
+                    message: 'Введите корректный интервал времени!'
+                });
+            }
+
+            return false;
+        }
+
+        let normalizedNow = nowTime;
+        if (isOvernight && nowTime.isLesser(initTimes.start)) {
+            normalizedNow = Time.createFromObject(nowTime);
+            normalizedNow.hours += 24;
+        }
+        
+        const normalizedTimes = this.countTimes(normalizedNow, initTimes, isOvernight);
+        return this.canStart(normalizedNow, normalizedTimes, isOvernight);
+    }
+
+    //#region Set Timers Utils
+
+    isValidRange (initTimes, isOvernight) {
+        if (!initTimes || !initTimes.start || !initTimes.lunch || !initTimes.end) { return false; }
+
+        if (isOvernight) {
+            return initTimes.start.isLesser(initTimes.lunch) ||
+                initTimes.lunch.isLesser(initTimes.end);
+        }
+
+        return initTimes.start.isLesser(initTimes.lunch) &&
+            initTimes.lunch.isLesser(initTimes.end);
+    }
+
+    countTimes (nowTime, initTimes, isOvernight) {
+
+        const times = {};
+        Object.assign(times, initTimes);
+
+        if (isOvernight) {
+            
+            if (initTimes.lunch.isLesser(initTimes.start)) {
+                times.lunch = Time.createFromObject(initTimes.lunch);
+                times.lunch.hours += 24;
+            }
+            times.end = Time.createFromObject(initTimes.end);
+            times.end.hours += 24;
+        }
+
+        for (const property in times) {
+            let time = times[property];
+            this.#timers[property].countTime(time, nowTime);
+        }
+
+        return times;
+    }
+
+    canStart (nowTime, initTimes, isOvernight) {
 
         if (nowTime.isLesser(initTimes.start)) {
 
             this.#setDayProgress('Before work');
             return false;
         }
-
+        
         if (nowTime.isBigger(initTimes.end)) {
-
+            
             this.#setDayProgress('After work');
             return false;
         }
-
+        
         return nowTime.isBigger(initTimes.start) &&
         nowTime.isLesser(initTimes.end);
     }
+
+    //#endregion
 
     
     startInterval () {
