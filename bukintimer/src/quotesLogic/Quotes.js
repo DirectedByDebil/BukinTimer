@@ -1,5 +1,5 @@
 import { weekDays, quotesByDayProgress } from "./quotesData";
-import { persons, personsQuotes, progressPersonsQuotes, personsTimeConditions } from "./persons";
+import { persons, personsQuotes, progressPersonsQuotes, personsTimeConditions, DAY_PROGRESS } from "./persons";
 import {extend, concat, shuffle} from "lodash"
 
 export default class Quotes {
@@ -39,12 +39,12 @@ export default class Quotes {
         const topic = weekDays[day];
         const jokes = shuffle(quotesByDayProgress[day]);
 
-        jokes.map((item)=>{
-            
+        if(!jokes) return;
+        for (const item of jokes) {
             this.#baseQuotes.push(
                 this.#generateQuote(topic, item)
             );
-        });
+        }
     }
 
     getBaseQuote() {
@@ -87,12 +87,12 @@ export default class Quotes {
         const phrases = personsQuotes[personName];
     
         const quotes = [];
-        phrases.map((item) => {
-
+        if (!phrases) return quotes;
+        for (const item of phrases) {
             quotes.push(
                 this.#generateQuote(personTopic, item)
             );
-        });
+        }
 
         return quotes;
     }
@@ -101,19 +101,18 @@ export default class Quotes {
 
         const person = this.#keys.selectedPerson || persons[0];
         const personName = person.name;
-        const timeConditionKey = this.#keys.dayProgress || 'Before work';
+        const timeConditionKey = this.#keys.dayProgress || DAY_PROGRESS.BEFORE_WORK;
         
         const quotes = [];
         const phrases = progressPersonsQuotes[personName][timeConditionKey];
-        const timeCondition = personsTimeConditions[personName][timeConditionKey];
+        const timeCondition = personsTimeConditions[personName][timeConditionKey] || timeConditionKey;
 
-
-        phrases.map((item) => {
-
+        if (!phrases) return quotes;
+        for (const item of phrases) {            
             quotes.push(
                 this.#generateQuote(timeCondition, item)
             );
-        });
+        }
 
         return quotes;
     }
