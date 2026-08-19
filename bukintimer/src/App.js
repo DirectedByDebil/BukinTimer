@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import './index.css';
 
+import { useLocalStorage } from './hooks/useLocalStorage';
+
 import InstallationBlock from './components/InstallationBlock/InstallationBlock';
 import TimerBlock from './components/TimerBlock/TimerBlock';
 import QuotesBlock from './components/QuotesBlock/QuotesBlock';
@@ -8,7 +10,7 @@ import BackgroundShapes from './components/BackgroundShapes/BackgroundShapes';
 import MusicPersonBlock from './components/MusicPersonBlock/MusicPersonBlock';
 import TimeCount from './timeLogic/timeCount';
 import {persons} from './quotesLogic/persons';
-import selectRandomColor from './effects/selectRandomColor';
+import selectRandomColor, {getThemes} from './effects/selectRandomColor';
 import Quotes from './quotesLogic/Quotes';
 
 //? maybe better use useRef or useCallback
@@ -52,10 +54,26 @@ export default function App() {
     const [dayProgress, setDayProgress] = useState('Before work');
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const [selectedTheme, setSelectedTheme] = useLocalStorage('bukinTheme', '');
+
     useEffect(() => {
-    const randomColor = selectRandomColor();
-    //TODO looks like sex, but maybe we can do this prettier
-    document.documentElement.style.setProperty('--bg-color', randomColor);
+        let themeId = selectedTheme;
+    
+        if (!themeId || themeId.length === 0) {
+            const randomTheme = selectRandomColor();
+            themeId = randomTheme && randomTheme.id;
+        }
+
+        const themes = getThemes();
+        let color = themes[0] && themes[0].color;
+        
+        if (themeId) {
+            const currentTheme = themes.find(theme => theme.id === themeId);
+            color = currentTheme ? currentTheme.color : 'white'; 
+            setSelectedTheme(themeId);
+        }
+
+        document.documentElement.style.setProperty('--bg-color', color);
     }, []);
 
     const handleOpenModal = () => setIsModalOpen(true);

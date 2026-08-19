@@ -2,6 +2,7 @@ import './musicpersonblock.css';
 import ButtonMusic from './ButtonMusic/ButtonMusic';
 import ButtonSelectPerson from './ButtonSelectPerson/ButtonSelectPerson';
 import ModalWindowPersons from '../ModalWindowPersons/ModalWindowPersons';
+import { ButtonChangeTheme } from './ButtonChangeTheme/ButtonChangeTheme';
 
 export default function MusicPersonBlock({ persons, selectedPerson, setSelectedPerson, onOpenModal, onCloseModal, isModalOpen }) {
     const handleOpenModal = () => {onOpenModal();};
@@ -15,6 +16,10 @@ export default function MusicPersonBlock({ persons, selectedPerson, setSelectedP
             </div>
             <div className="music-person-block__button">
                 <ButtonMusic />
+            </div>
+
+            <div className="music-person-block__button">
+                <ButtonChangeTheme />
             </div>
 
             {isModalOpen && <ModalWindowPersons 

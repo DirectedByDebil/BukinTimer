@@ -1,27 +1,25 @@
 import './installationblock.css'
-import { useState } from 'react';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 export default function InstallationBlock( { onTimeChanged} ){
 
     //todo debug overnight shift
+    
+    const[startTime, setStartTime] = useLocalStorage('startTime', '18:00:00');
+    const[lunchTime, setLunchTime] = useLocalStorage('lunchTime', '23:40:00');
+    const[endTime, setEndTime] = useLocalStorage('endTime', '07:00:00');
     /*
-    const[startTime, setStartTime] = useState('18:00:00');
-    const[lunchTime, setLunchTime] = useState('23:30:00');
-    const[endTime, setEndTime] = useState('07:00:00');
+    
+    const[startTime, setStartTime] = useLocalStorage('startTime', '09:00:00');
+    const[lunchTime, setLunchTime] = useLocalStorage('lunchTime', '14:00:00');
+    const[endTime, setEndTime] = useLocalStorage('endTime', '18:00:00');
     */
-
-    const[startTime, setStartTime] = useState('09:00:00');
-    const[lunchTime, setLunchTime] = useState('14:00:00');
-    const[endTime, setEndTime] = useState('18:00:00');
 
     const handleStart = () => {
 
         const times = {
-
             start: startTime,
-
             lunch: lunchTime,
-
             end: endTime
         };
 

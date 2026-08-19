@@ -1,0 +1,35 @@
+
+.icon-button{
+  height: 60px;
+  width: 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.button-change-theme {
+  display: block;
+  background-color: transparent;
+  width: 100%;
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.button-change-theme:hover {
+  transform: scale(1.1);
+}
+
+.button-change-theme .text {
+  color: var(--white);
+  font-weight: 700;
+  font-size: 1.1em;
+  transition: 400ms;
+}
+
+.button-change-theme:hover .text {
+  transform: scale(1.08);
+}

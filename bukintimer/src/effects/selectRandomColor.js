@@ -1,24 +1,25 @@
 import { shuffle } from "lodash";
 
-const colors = [
-    '#B7DA5D',
-    '#FF5170',
-    '#EFB391',
-    '#BC4878',
-    //? added more colors (maybe shit)
-    '#50d5f7ff',
-    '#6ee76eff',
-    '#d2df1bff'
+const themes = [
+    { id: 'picnic', color: '#A8D85A', title: 'Пикник' },
+    { id: 'rose', color: '#FF4D6D', title: 'Роза' },
+    { id: 'peach', color: '#F4A87A', title: 'Персик' },
+    { id: 'bordeaux', color: '#9E2A4A', title: 'Бордо' },
+    { id: 'sky', color: '#5BC0EB', title: 'Небеса' },
+    { id: 'emerald', color: '#2DC65B', title: 'Изумруд' },
+    { id: 'lemon', color: '#E3D64A', title: 'Лимон' }
 ];
 
 //? if we wanna change colors in runtime
-let randomColors = [];
+let randomTheme = [];
 
 export default function selectRandomColor () {
 
-    if(randomColors.length === 0) {
-        randomColors = shuffle(colors);
+    if(randomTheme.length === 0) {
+        randomTheme = shuffle(themes);
     }
 
-    return randomColors.pop();
+    return randomTheme.pop();
 };
+
+export const getThemes = () => Array.from(themes);

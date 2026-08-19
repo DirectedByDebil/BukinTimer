@@ -2,7 +2,7 @@ import './modalwindowpersons.css'
 
 export default function ModalWindowPersons({ onClose, persons, selectedPerson, setSelectedPerson }){
     
-    // add function for stop-animation background
+    //todo add function for stop-animation background
     
     const handleBackdropClick = (event) => {
         if (event.target.classList.contains('modalWindow__container')){
