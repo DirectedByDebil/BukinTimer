@@ -3,17 +3,9 @@ import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 export default function InstallationBlock( { onTimeChanged} ){
 
-    //todo debug overnight shift
-    
-    const[startTime, setStartTime] = useLocalStorage('startTime', '18:00:00');
-    const[lunchTime, setLunchTime] = useLocalStorage('lunchTime', '23:40:00');
-    const[endTime, setEndTime] = useLocalStorage('endTime', '07:00:00');
-    /*
-    
     const[startTime, setStartTime] = useLocalStorage('startTime', '09:00:00');
     const[lunchTime, setLunchTime] = useLocalStorage('lunchTime', '14:00:00');
     const[endTime, setEndTime] = useLocalStorage('endTime', '18:00:00');
-    */
 
     const handleStart = () => {
 

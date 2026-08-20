@@ -19,9 +19,6 @@ export function dispatchEventUtil(module, type, detail) {
     else {
         window.dispatchEvent(event);
     }
-    
-    //todo delete this: debug only
-    alert(detail.message);
 }
 
 

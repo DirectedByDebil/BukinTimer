@@ -6,15 +6,14 @@ export default class Timer {
     #isWorking = false;
     #isCountDown = false;    
     #isCountDownEnded;
-
+    #onWorkStopped;
     #time;
 
-    constructor(isCountDown, isCountDownEnded) {
-
+    constructor(isCountDown, isCountDownEnded, onWorkStopped) {
         this.#isCountDown = isCountDown;
-        this.#isCountDownEnded = isCountDownEnded;
+        this.#isCountDownEnded = isCountDownEnded || (() => {});
+        this.#onWorkStopped = onWorkStopped || (() => {});
     }
-
     
     countTime(initTime, nowTime) {
 
@@ -24,18 +23,17 @@ export default class Timer {
     }
 
     checkTimerStop() {
-
-        if(this.#time && this.#time.isZero()) {
-
+        if (this.#time && this.#time.isZero()) {
             this.#isWorking = false;
             this.#isCountDownEnded();
-        }
-        else {
 
+            if (this.id === 'end') {
+                this.#onWorkStopped();
+        }
+        } else {
             this.#isWorking = true;
         }
     }
-
 
     //#region Set/Get Time
 
@@ -54,6 +52,9 @@ export default class Timer {
         return this.#time.toString();
     }
     
+    get isWorking() {
+        return this.#isWorking;
+    }
     //#endregion
 
 

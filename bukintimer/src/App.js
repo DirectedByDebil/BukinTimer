@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import './index.css';
 
 import { useLocalStorage } from './hooks/useLocalStorage';
+import { setEventTargetBehavior } from './utils/eventUtils';
 
 import InstallationBlock from './components/InstallationBlock/InstallationBlock';
 import TimerBlock from './components/TimerBlock/TimerBlock';
@@ -46,6 +47,28 @@ document.addEventListener('visibilitychange', () => {
     }
 });
 
+const SetModules = () => {
+    const modules = ['Timer', 'Quotes', 'Music', 'Visual'];
+    const modulesRefs =[]
+
+    for (const module of modules) {
+    window[module] ??= {};
+    modulesRefs.push(window[module]);
+    }
+
+    setEventTargetBehavior(...modulesRefs);  
+    
+    try {
+
+        window['Timer'].addEventListener('dayProgressChanged', (e) => {
+            quotes.keys={dayProgress: e.detail.dayProgress};
+            quotes.updateQuote();
+        });
+    } catch (err) {
+        console.error(err);
+    }
+};
+
 export default function App() {
 
     const [times, setTimes] = useState({start: "00:00:00", lunch: "00:00:00", end:"00:00:00"});
@@ -74,6 +97,8 @@ export default function App() {
         }
 
         document.documentElement.style.setProperty('--bg-color', color);
+
+        SetModules();
     }, []);
 
     const handleOpenModal = () => setIsModalOpen(true);

@@ -1,6 +1,6 @@
 import Time from "./time";
 import Timer from "./timer";
-import {dispatchEventUtil} from "../utils/eventUtils"
+import { dispatchEventUtil } from "../utils/eventUtils";
 import { DAY_PROGRESS } from "../quotesLogic/persons";
 
 const TIME_SPEED = 1000;
@@ -8,22 +8,19 @@ const TIME_SPEED = 1000;
 export default class TimeCount {
     
     constructor() {
-        
         const isCountDown = true;
 
         const onLunchEnded = this.#onLunchEnded.bind(this);
         const onWorkEnded = this.#onWorkEnded.bind(this);
+        const onWorkStopped = this.#onWorkStopped.bind(this);
 
-        this.#timers = 
-        {
-            start: new Timer(!isCountDown),
-            lunch: new Timer(isCountDown, onLunchEnded),
-            end: new Timer(isCountDown, onWorkEnded),
+        this.#timers = {
+            start: new Timer(!isCountDown, null, onWorkStopped),
+            lunch: new Timer(isCountDown, onLunchEnded, onWorkStopped),
+            end: new Timer(isCountDown, onWorkEnded, onWorkStopped),
 
             toString() {
-
                 return {
-
                     start: this.start.time,
                     lunch: this.lunch.time,
                     end: this.end.time
@@ -55,7 +52,7 @@ export default class TimeCount {
 
     #setTimes;
     #setDayProgress;
-
+    #session = null;
     #timers = {};
 
 
@@ -65,6 +62,7 @@ export default class TimeCount {
             return;
         }
 
+        this.#session = session;
         const canStart = this.setTimers(times);
         
         if(!canStart) {
@@ -241,8 +239,13 @@ export default class TimeCount {
             }
         }
     }
+
+    #onWorkStopped() {
+        if (this.#session?.interval) {
+            clearInterval(this.#session.interval);
+            this.#session.interval = null;
+            console.log('Work stopped, interval cleared');
+        }
+    }
     //#endregion
 }
-
-
-
