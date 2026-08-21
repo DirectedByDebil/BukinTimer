@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/BukinTimer/static/css/main.bb7df53b.css",
+    "main.js": "/BukinTimer/static/js/main.e3225b28.js",
+    "static/js/453.815a4773.chunk.js": "/BukinTimer/static/js/453.815a4773.chunk.js",
+    "static/media/timer_sound.WAV": "/BukinTimer/static/media/timer_sound.3ad75cccdfa2fc58dd07.WAV",
+    "static/media/igor.png": "/BukinTimer/static/media/igor.fe4c692fc3f45363562e.png",
+    "static/media/ganvest.png": "/BukinTimer/static/media/ganvest.a80d0ef356f1f9544700.png",
+    "static/media/patrick.png": "/BukinTimer/static/media/patrick.f220659e0ffaebce3a6b.png",
+    "static/media/gena.png": "/BukinTimer/static/media/gena.e969a7a33c92447c6ebd.png",
+    "static/media/roman.png": "/BukinTimer/static/media/roman.e6afc295475cdbec15ad.png",
+    "static/media/tony.png": "/BukinTimer/static/media/tony.306d26eb09f3bf9030ad.png",
+    "index.html": "/BukinTimer/index.html",
+    "main.bb7df53b.css.map": "/BukinTimer/static/css/main.bb7df53b.css.map",
+    "main.e3225b28.js.map": "/BukinTimer/static/js/main.e3225b28.js.map",
+    "453.815a4773.chunk.js.map": "/BukinTimer/static/js/453.815a4773.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bb7df53b.css",
+    "static/js/main.e3225b28.js"
+  ]
+}
