@@ -7,6 +7,17 @@
   --pink:    #FF5170;
   --blue:    #009FEB;
   --black:   #000000;
+  --input-focus: #6c5ce7;
+
+  --bg-glass: rgba(255, 255, 255, 0.25);
+  --border-glass: rgba(255, 255, 255, 0.3);
+  --shadow-glow: 0 8px 32px rgba(220, 217, 241, 0.25);
+  --input-bg: rgba(255, 255, 255, 0.1);
+  
+  --radius-lg: 24px;
+  --radius-sm: 14px;
+
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
@@ -16,7 +27,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(90deg, white, var(--bg-color));
+  /* background: linear-gradient(90deg, white, var(--bg-color)); */
+  background: var(--bg-color);
   transition: background-color 0.5s ease;
 }
 

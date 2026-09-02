@@ -1,13 +1,12 @@
 import { shuffle } from "lodash";
 
 const themes = [
-    { id: 'picnic', color: '#A8D85A', title: 'Пикник' },
-    { id: 'rose', color: '#FF4D6D', title: 'Роза' },
-    { id: 'peach', color: '#F4A87A', title: 'Персик' },
+    { id: 'picnic', color: '#77aa24', title: 'Пикник' },
+    { id: 'rose', color: '#e2b10e', title: 'Горчица' },
+    { id: 'peach', color: '#e49e73', title: 'Персик' },
     { id: 'bordeaux', color: '#9E2A4A', title: 'Бордо' },
-    { id: 'sky', color: '#5BC0EB', title: 'Небеса' },
-    { id: 'emerald', color: '#2DC65B', title: 'Изумруд' },
-    { id: 'lemon', color: '#E3D64A', title: 'Лимон' }
+    { id: 'sky', color: '#39a0cc', title: 'Небеса' },
+    { id: 'emerald', color: '#0d0c20', title: 'Ночь' }
 ];
 
 //? if we wanna change colors in runtime

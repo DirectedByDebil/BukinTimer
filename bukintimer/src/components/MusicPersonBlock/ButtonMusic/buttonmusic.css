@@ -28,8 +28,9 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 70px;
+    width: 50px;
     height: 5px;
+    border-radius: var(--radius-lg);
     background-color: red;
     z-index: 2;
     transform: translate(-50%, -50%) rotate(45deg);

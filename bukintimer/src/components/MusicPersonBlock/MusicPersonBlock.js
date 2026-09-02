@@ -1,3 +1,4 @@
+import ReactDOM from 'react-dom';
 import './musicpersonblock.css';
 import ButtonMusic from './ButtonMusic/ButtonMusic';
 import ButtonSelectPerson from './ButtonSelectPerson/ButtonSelectPerson';
@@ -10,6 +11,7 @@ export default function MusicPersonBlock({ persons, selectedPerson, setSelectedP
     const handlePersonSelect = (person) => {setSelectedPerson(person); handleCloseModal();};
 
     return (
+        <>
         <div className="music-person-block">
             <div className="music-person-block__button">
                 <ButtonSelectPerson onClick = {handleOpenModal}/>
@@ -21,12 +23,15 @@ export default function MusicPersonBlock({ persons, selectedPerson, setSelectedP
             <div className="music-person-block__button">
                 <ButtonChangeTheme />
             </div>
-
-            {isModalOpen && <ModalWindowPersons 
+        </div>
+            {isModalOpen && ReactDOM.createPortal(
+                <ModalWindowPersons 
                             onClose = {handleCloseModal}
                             persons = {persons}
                             selectedPerson = {selectedPerson}
-                            setSelectedPerson = {handlePersonSelect}/>}
-        </div>
+                            setSelectedPerson = {handlePersonSelect}
+                            />,
+                        document.body)}
+        </>
     );
 }

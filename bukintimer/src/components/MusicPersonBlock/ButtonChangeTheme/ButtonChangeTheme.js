@@ -1,3 +1,4 @@
+import ReactDOM from 'react-dom';
 import './buttonchangetheme.css';
 import paletteIcon from './palette.png';
 
@@ -14,15 +15,19 @@ export const ButtonChangeTheme = () => {
 
   return (
     <>
-      <ModalWindowTheme opened={modalOpened} onClose={onModalClose} />
-
       <button
-        className='button-change-theme'
+        className="button-change-theme"
         onClick={onChangeThemeClick}
         aria-label="Сменить тему"
       >
-        <img src={paletteIcon} className='icon-button' alt='Сменить тему'></img>
+        <img src={paletteIcon} className="icon-button" alt="Сменить тему" />
       </button>
+
+      {modalOpened &&
+        ReactDOM.createPortal(
+          <ModalWindowTheme opened={modalOpened} onClose={onModalClose} />,
+          document.body
+        )}
     </>
   );
 };

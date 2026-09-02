@@ -4,7 +4,7 @@
     flex-direction: column;
     align-items: center;
     gap: 30px;
-    padding: 20px;
+    padding: 40px 0px 0px 0px;
 }
 
 .timer-block__container {
@@ -19,8 +19,10 @@
     width: 350px;
     height: 350px;
     border-radius: 50%;
-    background-color: var(--pink);
-    border: solid 15px var(--white);
+    background: var(--bg-glass);
+    backdrop-filter: blur(20px) saturate(220%);
+    -webkit-backdrop-filter: blur(20px) saturate(220%);
+    border: 15px solid var(--border-glass);
     display: flex;
     flex-direction: column;
     justify-content: center;

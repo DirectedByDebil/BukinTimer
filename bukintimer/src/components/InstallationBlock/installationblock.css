@@ -1,94 +1,182 @@
-.install-block{
+.install-block {
     display: grid;
-    gap: 20px;
+    gap: 24px;
     grid-template-columns: repeat(4, 1fr);
     padding: 20px;
-    width: 40%;
-    min-width: 250px;
+    width: 45%;
+    min-width: 280px;
     margin: 20px auto;
-    border: solid 5px var(--white);
-    border-radius: 16px;
-    justify-content: center;
-    align-items: center;
+    background: var(--bg-glass);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-glow), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    transition: var(--transition);
 }
 
-.install-block__label{
-    display: block;
-    margin-bottom: 5px;
+
+.install-block__container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
-.install-block__timer{
-    width: 90%;
-    font-size: 16px;
-    padding: 5px;
-    border: solid 1px var(--white);
-    border-radius: 8px;
-}
 
-.install-block__startButton{
-    display: block;
-    background-color: var(--blue);
-    width: 100%;
+.install-block__label {
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-transform: uppercase;
     color: var(--white);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: 400ms;
+    transition: var(--transition);
 }
 
-.install-block__startButton:hover{
-    transform: scale(1.05);
+
+.install-block__timer {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--white);
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: var(--radius-sm);
+    outline: none;
+    transition: var(--transition);
+    cursor: pointer;
+    box-sizing: border-box;
 }
+
+.install-block__timer::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 0.8;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.install-block__timer:hover {
+    border-color: var(--white);
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.install-block__timer:focus {
+    border-color: var(--input-focus);
+    background: rgba(108, 92, 231, 0.08);
+    box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.15);
+}
+
+
+.install-block__startButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 14px 0;
+    background: transparent;
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 8px 32px rgba(0, 0, 0, 0.25);
+    position: relative;
+    overflow: hidden;
+}
+
+
+.install-block__startButton::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), transparent 60%);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.install-block__startButton:hover {
+    transform: translateY(-2px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        0 12px 40px rgba(201, 197, 226, 0.2);
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.install-block__startButton:hover::before {
+    opacity: 1;
+}
+
+.install-block__startButton:active {
+    transform: scale(0.96);
+    box-shadow: 0 2px 8px rgba(108, 92, 231, 0.3);
+}
+
 
 .install-block__startButton .text {
-    color: var(--white);
+    color: #fff;
     font-weight: 700;
-    font-size: 1.1em;
-    transition: 400ms;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    transition: var(--transition);
+    position: relative;
+    z-index: 1;
+    white-space: nowrap;
 }
 
 .install-block__startButton:hover .text {
-    transform: scale(1.08);
+    transform: scale(1.05);
 }
 
-@media (max-width: 1240px) {
-    .install-block{
-        width: 55%;
+
+@media (max-width: 1310px) {
+    .install-block {
+        width: 60%;
         margin: 20px 20px;
+        padding: 28px 24px;
     }
 }
 
 @media (max-width: 1020px) {
-    .install-block{
+    .install-block {
         width: 60%;
     }
 }
 
-@media (max-width: 840px) {
-    .install-block{
+@media (max-width: 940px) {
+    .install-block {
         width: 70%;
-        grid-template-columns: repeat(1, 1fr);
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 24px 18px;
     }
-    
-    .install-block__startButton{
-        width: 92%;
-        margin: 0 auto;
-        justify-self: center;
+
+    .install-block__startButton {
+        width: 100%;
+        margin-top: 4px;
+    }
+
+    .install-block__startButton {
+        padding: 0;
     }
 }
 
 @media (max-width: 700px) {
-    .install-block{
+    .install-block {
         width: 65%;
     }
 }
 
 @media (max-width: 620px) {
-    .install-block{
+    .install-block {
         margin: 20px auto;
+        padding: 24px 18px;
+        width: 80%;
     }
-    .install-block__timer{
-        padding: 5px 0px;
+
+    .install-block__timer {
+        padding: 10px 12px;
+        font-size: 0.95rem;
     }
 }
